@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/professor.css">
+    <title>EduChain - Plataforma Universitária</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <h2>EduChain</h2>
+                <p>Plataforma Universitária</p>
+            </div>
+            
+            <div class="user-info">
+                <img src="https://ui-avatars.com/api/?name=João+Silva&background=3498db&color=fff" alt="Usuário">
+                <div class="user-details">
+                    <h4>João Silva</h4>
+                    <span>Professor</span>
+                </div>
+            </div>
+            
+            <ul class="nav-links">
+                <li>
+                    <a href="professor.html" class="active">
+                        <i class="fas fa-home"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="calendario-prof.html">
+                        <i class="fas fa-calendar-alt"></i>
+                        <span>Calendário</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="chat-prof.html">
+                        <i class="fas fa-comments"></i>
+                        <span>Mensagens</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="atividade.html">
+                        <i class="fas fa-tasks"></i>
+                        <span>Atividades</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="relatorios-professor.html">
+                        <i class="fas fa-chart-line"></i>
+                        <span>Relatórios</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="config.html">
+                        <i class="fas fa-cog"></i>
+                        <span>Configurações</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="index.html">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>Sair</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Header -->
+            <header>
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Pesquisar...">
+                </div>
+                
+                <div class="header-right">
+                    <div class="notification">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-count">3</span>
+                    </div>
+                    
+                    <div class="user-actions">
+                        <img src="https://ui-avatars.com/api/?name=João+Silva&background=3498db&color=fff" alt="Usuário">
+                    </div>
+                </div>
+            </header>
+            
+            <!-- Content Area -->
+            <div class="content">
+                <div class="page-title">
+                    <h1>Dashboard Professor</h1>
+                    <a href="atividade.html"> <button class="btn btn-primary">Nova Atividade</button> </a>
+                </div>
+                
+                <!-- Stats -->
+                <div class="stats">
+                    <div class="stat-card">
+                        <div class="stat-icon blue">
+                            <i class="fas fa-book"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="totalDisciplinas">5</h3>
+                            <p>Disciplinas</p>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon green">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="totalAlunos">142</h3>
+                            <p>Alunos</p>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon orange">
+                            <i class="fas fa-tasks"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="totalAtividades">0</h3>
+                            <p>Atividades Criadas</p>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon red">
+                            <i class="fas fa-exclamation-circle"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="pendentesCorrecao">0</h3>
+                            <p>Pendentes Correção</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Tabs -->
+                <div class="tabs">
+                    <div class="tab active" data-tab="calendar">Calendário</div>
+                    <div class="tab" data-tab="assignments">Atividades</div>
+                    <div class="tab" data-tab="chat">Mensagens</div>
+                </div>
+                
+                <!-- Calendar -->
+                <div class="tab-content active" id="calendar">
+                    <div class="card">
+                        <div class="calendar-header">
+                            <h2>Outubro 2023</h2>
+                            <div>
+                                <button class="btn btn-primary calendar-prev"><i class="fas fa-chevron-left"></i></button>
+                                <button class="btn btn-primary calendar-next"><i class="fas fa-chevron-right"></i></button>
+                            </div>
+                        </div>
+                        
+                        <div class="calendar">
+                            <div class="weekdays">
+                                <div>Dom</div>
+                                <div>Seg</div>
+                                <div>Ter</div>
+                                <div>Qua</div>
+                                <div>Qui</div>
+                                <div>Sex</div>
+                                <div>Sáb</div>
+                            </div>
+                            <!-- O JavaScript vai preencher os dias aqui automaticamente -->
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Atividades -->
+                <div class="tab-content" id="assignments">
+                    <div class="assignments">
+                        <div class="assignments-header">
+                            <h2>Minhas Atividades</h2>
+                            <a href="atividade.html" class="btn btn-primary">
+                                <i class="fas fa-plus"></i> Nova Atividade
+                            </a>
+                        </div>
+                        
+                        <div class="assignments-list" id="professorAssignmentsList">
+                            <div class="empty-state">
+                                <i class="fas fa-tasks"></i>
+                                <p>Nenhuma atividade criada ainda</p>
+                                <small>Clique em "Nova Atividade" para criar a primeira</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Chat -->
+                <div class="tab-content" id="chat">
+                    <div class="chat-container">
+                        <div class="chat-contacts">
+                            <div class="contact active">
+                                <img src="https://ui-avatars.com/api/?name=Turma+A&background=3498db&color=fff" alt="Turma">
+                                <div class="contact-info">
+                                    <h4>Turma de Cálculo I</h4>
+                                    <p>Grupo da disciplina</p>
+                                </div>
+                            </div>
+                            
+                            <div class="contact">
+                                <img src="https://ui-avatars.com/api/?name=Maria+Santos&background=2ecc71&color=fff" alt="Aluna">
+                                <div class="contact-info">
+                                    <h4>Maria Santos</h4>
+                                    <p>Última mensagem: Preciso de ajuda com...</p>
+                                </div>
+                            </div>
+                            
+                            <div class="contact">
+                                <img src="https://ui-avatars.com/api/?name=Pedro+Oliveira&background=e74c3c&color=fff" alt="Aluno">
+                                <div class="contact-info">
+                                    <h4>Pedro Oliveira</h4>
+                                    <p>Última mensagem: Professor, quando será...</p>
+                                </div>
+                            </div>
+                            
+                            <div class="contact">
+                                <img src="https://ui-avatars.com/api/?name=Ana+Costa&background=9b59b6&color=fff" alt="Aluna">
+                                <div class="contact-info">
+                                    <h4>Ana Costa</h4>
+                                    <p>Última mensagem: Boa tarde, gostaria de...</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="chat-messages">
+                            <div class="chat-header">
+                                <img src="https://ui-avatars.com/api/?name=Turma+A&background=3498db&color=fff" alt="Turma">
+                                <div>
+                                    <h4>Turma de Cálculo I</h4>
+                                    <p>25 participantes</p>
+                                </div>
+                            </div>
+                            
+                            <div class="messages">
+                                <div class="message received">
+                                    <div class="message-content">
+                                        <p>Boa tarde, professor. Tenho uma dúvida sobre a derivada implícita.</p>
+                                    </div>
+                                    <div class="message-time">14:32</div>
+                                </div>
+                                
+                                <div class="message sent">
+                                    <div class="message-content">
+                                        <p>Olá! Qual é a sua dúvida específica?</p>
+                                    </div>
+                                    <div class="message-time">14:35</div>
+                                </div>
+                                
+                                <div class="message received">
+                                    <div class="message-content">
+                                        <p>Não entendi como derivar y em função de x na equação x² + y² = 25</p>
+                                    </div>
+                                    <div class="message-time">14:36</div>
+                                </div>
+                                
+                                <div class="message sent">
+                                    <div class="message-content">
+                                        <p>Vou explicar passo a passo. Primeiro, derive ambos os lados em relação a x...</p>
+                                    </div>
+                                    <div class="message-time">14:40</div>
+                                </div>
+                                
+                                <div class="message received">
+                                    <div class="message-content">
+                                        <p>Agora entendi! Muito obrigado pela explicação.</p>
+                                    </div>
+                                    <div class="message-time">14:45</div>
+                                </div>
+                            </div>
+                            
+                            <div class="chat-input">
+                                <input type="text" placeholder="Digite sua mensagem...">
+                                <button><i class="fas fa-paper-plane"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/atividades-compartilhadas.js"></script>
+    <script>
+        // Sistema do Professor
+        function loadProfessorDashboard() {
+            // Carregar estatísticas
+            const activities = getActivities().filter(a => a.professorId === 1);
+            const totalAtividades = activities.length;
+            const pendentesCorrecao = activities.filter(a => 
+                a.submissions && a.submissions.some(s => !s.grade)
+            ).length;
+            
+            document.getElementById('totalAtividades').textContent = totalAtividades;
+            document.getElementById('pendentesCorrecao').textContent = pendentesCorrecao;
+            
+            // Carregar atividades do professor
+            loadProfessorActivities();
+        }
+        
+        function loadProfessorActivities() {
+            const container = document.getElementById('professorAssignmentsList');
+            const activities = getActivities().filter(a => a.professorId === 1);
+            
+            if (activities.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-tasks"></i>
+                        <p>Nenhuma atividade criada ainda</p>
+                        <small>Clique em "Nova Atividade" para criar a primeira</small>
+                    </div>
+                `;
+                return;
+            }
+            
+            container.innerHTML = '';
+            activities.forEach(activity => {
+                const dueDate = new Date(activity.dueDate);
+                const totalSubmissions = activity.submissions ? activity.submissions.length : 0;
+                
+                const activityElement = document.createElement('div');
+                activityElement.className = 'assignment';
+                activityElement.innerHTML = `
+                    <div class="assignment-header">
+                        <div class="assignment-title">${activity.title}</div>
+                        <div class="assignment-due">${dueDate.toLocaleDateString('pt-BR')}</div>
+                    </div>
+                    <div class="assignment-details">
+                        <p>${activity.description}</p>
+                        <p><strong>Disciplina:</strong> ${activity.discipline}</p>
+                    </div>
+                    <div class="assignment-actions">
+                        <button class="btn btn-primary" onclick="viewActivity(${activity.id})">Detalhes</button>
+                        <span>${totalSubmissions} entregas</span>
+                    </div>
+                `;
+                
+                container.appendChild(activityElement);
+            });
+        }
+        
+        function viewActivity(activityId) {
+            // Redirecionar para a página de detalhes da atividade
+            window.location.href = `atividade-detalhes.html?id=${activityId}`;
+        }
+        
+        // Sistema de abas
+        function setupTabs() {
+            const tabs = document.querySelectorAll('.tab');
+            const tabContents = document.querySelectorAll('.tab-content');
+            
+            tabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    const tabId = this.getAttribute('data-tab');
+                    
+                    // Remover active de todos
+                    tabs.forEach(t => t.classList.remove('active'));
+                    tabContents.forEach(tc => tc.classList.remove('active'));
+                    
+                    // Adicionar active ao selecionado
+                    this.classList.add('active');
+                    document.getElementById(tabId).classList.add('active');
+                });
+            });
+        }
+        
+        // Inicializar
+        document.addEventListener('DOMContentLoaded', function() {
+            loadProfessorDashboard();
+            setupTabs();
+        });
+    </script>
+</body>
+</html>

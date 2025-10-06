@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configurações - EduChain</title>
+    <link rel="stylesheet" href="css/config.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <h2>EduChain</h2>
+                <p>Configurações</p>
+            </div>
+            
+            <div class="user-info">
+                <img src="https://ui-avatars.com/api/?name=Admin+User&background=3498db&color=fff" alt="Usuário">
+                <div class="user-details">
+                    <h4>Administrador</h4>
+                    <span>Sistema</span>
+                </div>
+            </div>
+            
+            <ul class="nav-links">
+                <li>
+                    <a href="professor.html">
+                        <i class="fas fa-arrow-left"></i>
+                        <span>Voltar</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="nav-item active" data-section="display">
+                        <i class="fas fa-desktop"></i>
+                        <span>Tela & Visual</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="nav-item" data-section="accessibility">
+                        <i class="fas fa-universal-access"></i>
+                        <span>Acessibilidade</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="nav-item" data-section="notifications">
+                        <i class="fas fa-bell"></i>
+                        <span>Notificações</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="nav-item" data-section="account">
+                        <i class="fas fa-user-cog"></i>
+                        <span>Conta</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="nav-item" data-section="privacy">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>Privacidade</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="index.html">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>Sair</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="main-content">
+            <header>
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Pesquisar configurações..." id="searchSettings">
+                </div>
+                
+                <div class="header-right">
+                    <div class="theme-toggle">
+                        <button id="themeToggle" class="btn btn-secondary">
+                            <i class="fas fa-moon"></i> Tema Escuro
+                        </button>
+                    </div>
+                    <div class="user-actions">
+                        <img src="https://ui-avatars.com/api/?name=Admin+User&background=3498db&color=fff" alt="Usuário">
+                    </div>
+                </div>
+            </header>
+            
+            <div class="content">
+                <div class="page-title">
+                    <h1>Configurações do Sistema</h1>
+                    <div class="settings-actions">
+                        <button class="btn btn-secondary" id="resetSettings">
+                            <i class="fas fa-undo"></i> Redefinir
+                        </button>
+                        <button class="btn btn-primary" id="saveSettings">
+                            <i class="fas fa-save"></i> Salvar Alterações
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Seção: Tela & Visual -->
+                <div class="settings-section active" id="display">
+                    <h2><i class="fas fa-desktop"></i> Tela & Visual</h2>
+                    
+                    <div class="setting-group">
+                        <h3>Tamanho da Fonte</h3>
+                        <div class="font-size-controls">
+                            <button class="btn btn-sm" id="decreaseFont">A-</button>
+                            <span class="font-size-display" id="fontSizeDisplay">Médio</span>
+                            <button class="btn btn-sm" id="increaseFont">A+</button>
+                        </div>
+                        <div class="font-size-slider">
+                            <input type="range" id="fontSizeSlider" min="12" max="24" value="16" class="slider">
+                            <div class="slider-labels">
+                                <span>Pequeno</span>
+                                <span>Médio</span>
+                                <span>Grande</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="setting-group">
+                        <h3>Resolução da Interface</h3>
+                        <div class="resolution-controls">
+                            <div class="resolution-option" data-resolution="compact">
+                                <div class="resolution-preview compact"></div>
+                                <span>Compacta</span>
+                                <small>Elementos mais próximos</small>
+                            </div>
+                            <div class="resolution-option active" data-resolution="normal">
+                                <div class="resolution-preview normal"></div>
+                                <span>Normal</span>
+                                <small>Padrão do sistema</small>
+                            </div>
+                            <div class="resolution-option" data-resolution="spacious">
+                                <div class="resolution-preview spacious"></div>
+                                <span>Espaçosa</span>
+                                <small>Mais espaço entre elementos</small>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="setting-group">
+                        <h3>Tema de Cores</h3>
+                        <div class="theme-colors">
+                            <div class="color-option" data-theme="blue" style="background-color: #3498db;"></div>
+                            <div class="color-option" data-theme="green" style="background-color: #2ecc71;"></div>
+                            <div class="color-option" data-theme="purple" style="background-color: #9b59b6;"></div>
+                            <div class="color-option" data-theme="orange" style="background-color: #e67e22;"></div>
+                            <div class="color-option" data-theme="red" style="background-color: #e74c3c;"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="setting-group">
+                        <h3>Zoom da Página</h3>
+                        <div class="zoom-controls">
+                            <button class="btn btn-sm" id="zoomOut">-</button>
+                            <span class="zoom-display" id="zoomDisplay">100%</span>
+                            <button class="btn btn-sm" id="zoomIn">+</button>
+                        </div>
+                        <div class="zoom-slider">
+                            <input type="range" id="zoomSlider" min="50" max="150" value="100" step="10" class="slider">
+                            <div class="slider-labels">
+                                <span>50%</span>
+                                <span>100%</span>
+                                <span>150%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Seção: Acessibilidade -->
+                <div class="settings-section" id="accessibility">
+                    <h2><i class="fas fa-universal-access"></i> Acessibilidade</h2>
+                    
+                    <div class="setting-group">
+                        <h3>Modo de Alto Contraste</h3>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="highContrast">
+                            <span class="slider-toggle"></span>
+                            <span class="toggle-label">Ativar alto contraste</span>
+                        </label>
+                        <p class="setting-description">Aumenta o contraste entre texto e fundo para melhor legibilidade.</p>
+                    </div>
+                    
+                    <div class="setting-group">
+                        <h3>Reduzir Animação</h3>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="reduceMotion">
+                            <span class="slider-toggle"></span>
+                            <span class="toggle-label">Reduzir animações e transições</span>
+                        </label>
+                        <p class="setting-description">Diminui ou remove animações para usuários sensíveis a movimento.</p>
+                    </div>
+                    
+                    <div class="setting-group">
+                        <h3>Leitor de Tela</h3>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="screenReader">
+                            <span class="slider-toggle"></span>
+                            <span class="toggle-label">Otimizar para leitores de tela</span>
+                        </label>
+                        <p class="setting-description">Melhora a compatibilidade com tecnologias assistivas.</p>
+                    </div>
+                    
+                    <div class="setting-group">
+                        <h3>Foco Visível</h3>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="visibleFocus" checked>
+                            <span class="slider-toggle"></span>
+                            <span class="toggle-label">Destacar elementos em foco</span>
+                        </label>
+                        <p class="setting-description">Destaca visualmente os elementos que estão em foco durante a navegação por teclado.</p>
+                    </div>
+                </div>
+                
+                <!-- Seção: Notificações -->
+                <div class="settings-section" id="notifications">
+                    <h2><i class="fas fa-bell"></i> Notificações</h2>
+                    
+                    <div class="setting-group">
+                        <h3>Notificações do Sistema</h3>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="systemNotifications" checked>
+                            <span class="slider-toggle"></span>
+                            <span class="toggle-label">Receber notificações do sistema</span>
+                        </label>
+                    </div>
+                    
+                    <div class="setting-group">
+                        <h3>Notificações por Email</h3>
+                        <div class="notification-options">
+                            <label class="checkbox-option">
+                                <input type="checkbox" id="emailActivities" checked>
+                                <span class="checkmark"></span>
+                                <span>Novas atividades</span>
+                            </label>
+                            <label class="checkbox-option">
+                                <input type="checkbox" id="emailDeadlines">
+                                <span class="checkmark"></span>
+                                <span>Prazos próximos</span>
+                            </label>
+                            <label class="checkbox-option">
+                                <input type="checkbox" id="emailMessages" checked>
+                                <span class="checkmark"></span>
+                                <span>Novas mensagens</span>
+                            </label>
+                            <label class="checkbox-option">
+                                <input type="checkbox" id="emailAnnouncements">
+                                <span class="checkmark"></span>
+                                <span>Anúncios importantes</span>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="setting-group">
+                        <h3>Notificações Push</h3>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="pushNotifications">
+                            <span class="slider-toggle"></span>
+                            <span class="toggle-label">Ativar notificações push</span>
+                        </label>
+                        <p class="setting-description">Receba notificações mesmo quando não estiver usando o sistema.</p>
+                    </div>
+                </div>
+                
+                <!-- Seção: Conta -->
+                <div class="settings-section" id="account">
+                    <h2><i class="fas fa-user-cog"></i> Conta</h2>
+                    
+                    <div class="setting-group">
+                        <h3>Informações Pessoais</h3>
+                        <div class="form-group">
+                            <label for="userName">Nome Completo</label>
+                            <input type="text" id="userName" class="form-control" value="Administrador">
+                        </div>
+                        <div class="form-group">
+                            <label for="userEmail">Email</label>
+                            <input type="email" id="userEmail" class="form-control" value="admin@educhain.com">
+                        </div>
+                    </div>
+                    
+                    <div class="setting-group">
+                        <h3>Alterar Senha</h3>
+                        <div class="form-group">
+                            <label for="currentPassword">Senha Atual</label>
+                            <input type="password" id="currentPassword" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="newPassword">Nova Senha</label>
+                            <input type="password" id="newPassword" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="confirmPassword">Confirmar Nova Senha</label>
+                            <input type="password" id="confirmPassword" class="form-control">
+                        </div>
+                        <button class="btn btn-primary" id="changePassword">Alterar Senha</button>
+                    </div>
+                    
+                    <div class="setting-group">
+                        <h3>Preferências de Idioma</h3>
+                        <div class="form-group">
+                            <label for="language">Idioma do Sistema</label>
+                            <select id="language" class="form-control">
+                                <option value="pt-BR" selected>Português (Brasil)</option>
+                                <option value="en-US">English (US)</option>
+                                <option value="es-ES">Español</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Seção: Privacidade -->
+                <div class="settings-section" id="privacy">
+                    <h2><i class="fas fa-shield-alt"></i> Privacidade</h2>
+                    
+                    <div class="setting-group">
+                        <h3>Coleta de Dados</h3>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="dataCollection" checked>
+                            <span class="slider-toggle"></span>
+                            <span class="toggle-label">Permitir coleta de dados anônimos</span>
+                        </label>
+                        <p class="setting-description">Ajude a melhorar o sistema permitindo o envio de dados de uso anônimos.</p>
+                    </div>
+                    
+                    <div class="setting-group">
+                        <h3>Privacidade do Perfil</h3>
+                        <div class="form-group">
+                            <label for="profileVisibility">Visibilidade do Perfil</label>
+                            <select id="profileVisibility" class="form-control">
+                                <option value="public">Público</option>
+                                <option value="students" selected>Somente Alunos</option>
+                                <option value="teachers">Somente Professores</option>
+                                <option value="private">Privado</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="setting-group">
+                        <h3>Exportar Dados</h3>
+                        <p>Baixe uma cópia dos seus dados pessoais armazenados no sistema.</p>
+                        <button class="btn btn-secondary" id="exportData">
+                            <i class="fas fa-download"></i> Exportar Meus Dados
+                        </button>
+                    </div>
+                    
+                    <div class="setting-group danger-zone">
+                        <h3>Zona de Perigo</h3>
+                        <p>Ações irreversíveis. Tenha cuidado.</p>
+                        <button class="btn btn-danger" id="deleteAccount">
+                            <i class="fas fa-trash"></i> Excluir Minha Conta
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Confirmação -->
+    <div id="confirmModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalTitle">Confirmar Ação</h3>
+                <span class="close">&times;</span>
+            </div>
+            <div class="modal-body">
+                <p id="modalMessage">Tem certeza que deseja realizar esta ação?</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" id="modalCancel">Cancelar</button>
+                <button class="btn btn-primary" id="modalConfirm">Confirmar</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/config.js"></script>
+</body>
+</html>

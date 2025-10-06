@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/aluno.css">
+    <link rel="stylesheet" href="css/aluno2.css">
+    <title>Área do Aluno - EduChain</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Estilos adicionais para corrigir o problema de navegação */
+        .nav-links a {
+            display: flex;
+            align-items: center;
+            padding: 12px 20px;
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+        
+        .nav-links a[href*=".html"] {
+            /* Links que apontam para outras páginas HTML */
+            border-left: 4px solid transparent;
+        }
+        
+        .nav-links a[href*=".html"]:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+            border-left: 4px solid #2ecc71;
+        }
+        
+        /* Garantir que os links externos não sejam afetados pelo sistema de tabs */
+        a[href*=".html"]:not([data-tab]) {
+            cursor: pointer;
+        }
+        
+        /* Indicador visual para links que redirecionam */
+        .nav-links a[href*=".html"]:after {
+            content: "↗";
+            margin-left: auto;
+            font-size: 12px;
+            opacity: 0.7;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <h2>EduChain</h2>
+                <p>Área do Aluno</p>
+            </div>
+            
+            <div class="user-info">
+                <img src="https://ui-avatars.com/api/?name=Ana+Aluna&background=2ecc71&color=fff" alt="Aluna">
+                <div class="user-details">
+                    <h4>Ana Silva</h4>
+                    <span>Engenharia de Software</span>
+                </div>
+            </div>
+            
+            <ul class="nav-links">
+                <li>
+                    <a href="aluno.html" class="active" data-tab="dashboard">
+                        <i class="fas fa-home"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <!-- Link CORRIGIDO - removido data-tab para funcionar como link normal -->
+                    <a href="disciplinas.html">
+                        <i class="fas fa-book"></i>
+                        <span>Disciplinas</span>
+                    </a>
+                </li>
+                <li>
+                    <!-- Link CORRIGIDO - removido data-tab para funcionar como link normal -->
+                    <a href="atividades-aluno.html">
+                        <i class="fas fa-tasks"></i>
+                        <span>Atividades</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="chat-aluno.html" data-tab="chat">
+                        <i class="fas fa-comments"></i>
+                        <span>Chat</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" data-tab="reclamacoes">
+                        <i class="fas fa-exclamation-circle"></i>
+                        <span>Reclamações</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" data-tab="calendario">
+                        <i class="fas fa-calendar"></i>
+                        <span>Calendário</span>
+                    </a>
+                </li>
+                    <li>
+                    <a href="config.html">
+                        <i class="fas fa-cog"></i>
+                        <span>Configurações</span>
+                    </a>
+                </li>
+                <li>
+                <li>
+                    <a href="index.html">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>Sair</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Header -->
+            <header>
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Pesquisar...">
+                </div>
+                
+                <div class="header-right">
+                    <div class="notification">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-count">3</span>
+                    </div>
+                    
+                    <div class="user-actions">
+                        <img src="https://ui-avatars.com/api/?name=Ana+Aluna&background=2ecc71&color=fff" alt="Aluna">
+                    </div>
+                </div>
+            </header>
+            
+            <!-- Content Area -->
+            <div class="content">
+                <!-- Dashboard -->
+                <div class="tab-content active" id="dashboard">
+                    <div class="page-title">
+                        <h1>Dashboard</h1>
+                        <span class="welcome-message">Bem-vinda, Ana!</span>
+                    </div>
+                    
+                    <div class="stats">
+                        <div class="stat-card">
+                            <div class="stat-icon blue">
+                                <i class="fas fa-book"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3 id="totalDisciplinasCount">5</h3>
+                                <p>Disciplinas</p>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-card">
+                            <div class="stat-icon orange">
+                                <i class="fas fa-tasks"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3 id="pendingActivitiesCount">8</h3>
+                                <p>Atividades Pendentes</p>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-card">
+                            <div class="stat-icon green">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3 id="submittedActivitiesCount">12</h3>
+                                <p>Atividades Entregues</p>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-card">
+                            <div class="stat-icon red">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3 id="deadlineActivitiesCount">2</h3>
+                                <p>Prazos Próximos</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="dashboard-content">
+                        <div class="card">
+                            <div class="card-header">
+                                <h2>Minhas Disciplinas</h2>
+                                <a href="disciplinas.html" class="btn btn-primary btn-sm">Ver Todas</a>
+                            </div>
+                            <div class="disciplinas-preview" id="disciplinasPreview">
+                                <!-- Disciplinas serão carregadas via JavaScript -->
+                                <div class="empty-state">
+                                    <i class="fas fa-book-open"></i>
+                                    <p>Carregando disciplinas...</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="card">
+                            <div class="card-header">
+                                <h2>Próximas Atividades</h2>
+                                <a href="atividades-aluno.html" class="btn btn-primary btn-sm">Ver Todas</a>
+                            </div>
+                            <div class="atividades-list" id="proximasAtividades">
+                                <!-- Atividades serão carregadas via JavaScript -->
+                                <div class="empty-state">
+                                    <i class="fas fa-tasks"></i>
+                                    <p>Carregando atividades...</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Chat -->
+                <div class="tab-content" id="chat">
+                    <div class="page-title">
+                        <h1>Chat</h1>
+                    </div>
+                    
+                    <div class="chat-container">
+                        <div class="chat-sidebar">
+                            <div class="chat-search">
+                                <i class="fas fa-search"></i>
+                                <input type="text" placeholder="Buscar conversas...">
+                            </div>
+                            
+                            <div class="chat-contacts">
+                                <div class="contact-category">
+                                    <h3>Professores</h3>
+                                </div>
+                                <div class="contact-list" id="professoresList">
+                                    <!-- Lista de professores -->
+                                </div>
+                                
+                                <div class="contact-category">
+                                    <h3>Turmas</h3>
+                                </div>
+                                <div class="contact-list" id="turmasList">
+                                    <!-- Lista de turmas -->
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="chat-main">
+                            <div class="chat-header">
+                                <div class="selected-contact">
+                                    <img src="https://ui-avatars.com/api/?name=Professor+Silva&background=3498db&color=fff" alt="Professor">
+                                    <div class="contact-info">
+                                        <h4>Prof. Carlos Silva</h4>
+                                        <p>Online</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="chat-messages">
+                                <div class="message received">
+                                    <div class="message-content">
+                                        <p>Olá Ana, como vai o trabalho de algoritmos?</p>
+                                    </div>
+                                    <div class="message-time">10:30</div>
+                                </div>
+                                
+                                <div class="message sent">
+                                    <div class="message-content">
+                                        <p>Oi professor! Estou finalizando, só falta a documentação.</p>
+                                    </div>
+                                    <div class="message-time">10:32</div>
+                                </div>
+                                
+                                <div class="message received">
+                                    <div class="message-content">
+                                        <p>Ótimo! Lembre-se que a documentação é importante para a nota.</p>
+                                    </div>
+                                    <div class="message-time">10:33</div>
+                                </div>
+                            </div>
+                            
+                            <div class="chat-input">
+                                <input type="text" placeholder="Digite sua mensagem...">
+                                <button class="btn btn-primary">
+                                    <i class="fas fa-paper-plane"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Reclamações -->
+                <div class="tab-content" id="reclamacoes">
+                    <div class="page-title">
+                        <h1>Central de Reclamações</h1>
+                        <p>Envie suas reclamações ou sugestões diretamente para a direção</p>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Nova Reclamação</h2>
+                        </div>
+                        
+                        <form id="reclamacaoForm">
+                            <div class="form-group">
+                                <label for="reclamacaoTipo">Tipo</label>
+                                <select id="reclamacaoTipo" class="form-control" required>
+                                    <option value="">Selecione o tipo</option>
+                                    <option value="professor">Professor</option>
+                                    <option value="disciplina">Disciplina</option>
+                                    <option value="infraestrutura">Infraestrutura</option>
+                                    <option value="outro">Outro</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="reclamacaoAssunto">Assunto</label>
+                                <input type="text" id="reclamacaoAssunto" class="form-control" placeholder="Assunto da reclamação" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="reclamacaoMensagem">Mensagem</label>
+                                <textarea id="reclamacaoMensagem" class="form-control" rows="5" placeholder="Descreva detalhadamente sua reclamação ou sugestão..." required></textarea>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="reclamacaoAnexo">Anexar arquivo (opcional)</label>
+                                <input type="file" id="reclamacaoAnexo" class="form-control">
+                            </div>
+                            
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-paper-plane"></i> Enviar Reclamação
+                            </button>
+                        </form>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Reclamações Enviadas</h2>
+                        </div>
+                        
+                        <div class="reclamacoes-list" id="listaReclamacoes">
+                            <!-- Lista de reclamações será carregada via JavaScript -->
+                            <div class="empty-state">
+                                <i class="fas fa-inbox"></i>
+                                <p>Nenhuma reclamação enviada ainda</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Calendário -->
+                <div class="tab-content" id="calendario">
+                    <div class="page-title">
+                        <h1>Calendário Acadêmico</h1>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="calendar-header">
+                            <h2 id="calendarFullMonth">Outubro 2023</h2>
+                            <div>
+                                <button class="btn btn-primary" id="prevMonth"><i class="fas fa-chevron-left"></i></button>
+                                <button class="btn btn-primary" id="nextMonth"><i class="fas fa-chevron-right"></i></button>
+                            </div>
+                        </div>
+                        
+                        <div class="calendar">
+                            <div class="weekdays">
+                                <div>Dom</div>
+                                <div>Seg</div>
+                                <div>Ter</div>
+                                <div>Qua</div>
+                                <div>Qui</div>
+                                <div>Sex</div>
+                                <div>Sáb</div>
+                            </div>
+                            <div class="calendar-days" id="calendarioDias">
+                                <!-- Dias serão carregados via JavaScript -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Sistema de armazenamento para disciplinas (compartilhado com disciplinas.html)
+        function getStudentDisciplines() {
+            const studentDisciplines = localStorage.getItem('studentDisciplines');
+            
+            // Se não existirem disciplinas do aluno, criar com base nas disciplinas disponíveis
+            if (!studentDisciplines) {
+                const disciplines = getDisciplinesFromDirector();
+                
+                // Simular matrícula do aluno em algumas disciplinas
+                const studentEnrollments = disciplines
+                    .filter(d => d.active) // Apenas disciplinas ativas
+                    .slice(0, 5) // Matricular em até 5 disciplinas
+                    .map(d => ({
+                        disciplineId: d.id,
+                        enrollmentDate: new Date().toISOString(),
+                        status: 'active'
+                    }));
+                
+                localStorage.setItem('studentDisciplines', JSON.stringify(studentEnrollments));
+                return studentEnrollments;
+            }
+            
+            return JSON.parse(studentDisciplines);
+        }
+        
+        // Função para obter disciplinas definidas pelo diretor
+        function getDisciplinesFromDirector() {
+            const disciplines = localStorage.getItem('disciplines');
+            
+            // Se não existirem dados, criar alguns exemplos
+            if (!disciplines) {
+                const sampleDisciplines = [
+                    {
+                        id: 1,
+                        name: "Cálculo I",
+                        code: "MAT101",
+                        courseId: 1,
+                        period: "1º Período",
+                        workload: 60,
+                        professor: "Prof. Carlos Silva",
+                        description: "Introdução aos conceitos fundamentais do cálculo diferencial e integral.",
+                        active: true
+                    },
+                    {
+                        id: 2,
+                        name: "Física I",
+                        code: "FIS101",
+                        courseId: 1,
+                        period: "1º Período",
+                        workload: 60,
+                        professor: "Prof. Ana Santos",
+                        description: "Mecânica clássica: cinemática, dinâmica e leis de Newton.",
+                        active: true
+                    },
+                    {
+                        id: 3,
+                        name: "Programação I",
+                        code: "PROG101",
+                        courseId: 1,
+                        period: "1º Período",
+                        workload: 80,
+                        professor: "Prof. João Pereira",
+                        description: "Introdução à lógica de programação e algoritmos.",
+                        active: true
+                    },
+                    {
+                        id: 4,
+                        name: "Álgebra Linear",
+                        code: "MAT201",
+                        courseId: 1,
+                        period: "2º Período",
+                        workload: 60,
+                        professor: "Prof. Maria Oliveira",
+                        description: "Estudo de vetores, matrizes e sistemas lineares.",
+                        active: true
+                    },
+                    {
+                        id: 5,
+                        name: "Banco de Dados",
+                        code: "BD101",
+                        courseId: 1,
+                        period: "3º Período",
+                        workload: 80,
+                        professor: "Prof. Roberto Almeida",
+                        description: "Conceitos fundamentais de modelagem e implementação de bancos de dados.",
+                        active: true
+                    }
+                ];
+                
+                localStorage.setItem('disciplines', JSON.stringify(sampleDisciplines));
+                return sampleDisciplines;
+            }
+            
+            return JSON.parse(disciplines);
+        }
+        
+        // Carregar disciplinas no dashboard
+        function loadDashboardDisciplines() {
+            const container = document.getElementById('disciplinasPreview');
+            const studentEnrollments = getStudentDisciplines();
+            const allDisciplines = getDisciplinesFromDirector();
+            
+            // Combinar informações
+            const studentDisciplines = studentEnrollments.map(enrollment => {
+                return allDisciplines.find(d => d.id === enrollment.disciplineId);
+            }).filter(d => d !== undefined).slice(0, 3); // Mostrar apenas 3 disciplinas
+            
+            // Atualizar contador
+            document.getElementById('totalDisciplinasCount').textContent = studentEnrollments.length;
+            
+            if (studentDisciplines.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-book-open"></i>
+                        <p>Nenhuma disciplina matriculada</p>
+                        <small>Entre em contato com a secretaria para realizar sua matrícula.</small>
+                    </div>
+                `;
+                return;
+            }
+            
+            container.innerHTML = '';
+            studentDisciplines.forEach(discipline => {
+                const disciplineElement = document.createElement('div');
+                disciplineElement.className = 'disciplina-preview-item';
+                disciplineElement.innerHTML = `
+                    <div class="disciplina-preview-header">
+                        <h4>${discipline.name}</h4>
+                        <span class="disciplina-code">${discipline.code}</span>
+                    </div>
+                    <div class="disciplina-preview-info">
+                        <p><strong>Professor:</strong> ${discipline.professor}</p>
+                        <p><strong>Período:</strong> ${discipline.period}</p>
+                    </div>
+                `;
+                
+                container.appendChild(disciplineElement);
+            });
+        }
+        
+        // Sistema de abas
+        function setupTabs() {
+            const tabLinks = document.querySelectorAll('.nav-links a[data-tab]');
+            const tabContents = document.querySelectorAll('.tab-content');
+            
+            tabLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    // Apenas prevenir comportamento padrão se for um link interno (#)
+                    if (this.getAttribute('href') === '#') {
+                        e.preventDefault();
+                    }
+                    
+                    // Remover classe active de todos os links e conteúdos
+                    tabLinks.forEach(l => l.classList.remove('active'));
+                    tabContents.forEach(c => c.classList.remove('active'));
+                    
+                    // Adicionar classe active ao link clicado
+                    this.classList.add('active');
+                    
+                    // Mostrar o conteúdo correspondente (apenas se for uma aba interna)
+                    if (this.getAttribute('href') === '#') {
+                        const tabId = this.getAttribute('data-tab');
+                        document.getElementById(tabId).classList.add('active');
+                    }
+                });
+            });
+        }
+        
+        // Inicializar a página
+        document.addEventListener('DOMContentLoaded', function() {
+            loadDashboardDisciplines();
+            setupTabs();
+            
+            // Adicionar estilos CSS para a prévia de disciplinas
+            const style = document.createElement('style');
+            style.textContent = `
+                .disciplinas-preview {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 15px;
+                }
+                
+                .disciplina-preview-item {
+                    background: #f8f9fa;
+                    border-radius: 6px;
+                    padding: 15px;
+                    border-left: 4px solid #2ecc71;
+                }
+                
+                .disciplina-preview-header {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    margin-bottom: 10px;
+                }
+                
+                .disciplina-preview-header h4 {
+                    margin: 0;
+                    font-size: 16px;
+                    color: #2c3e50;
+                }
+                
+                .disciplina-code {
+                    background-color: #ecf0f1;
+                    color: #7f8c8d;
+                    padding: 2px 6px;
+                    border-radius: 3px;
+                    font-size: 11px;
+                    font-weight: 500;
+                }
+                
+                .disciplina-preview-info p {
+                    margin: 5px 0;
+                    font-size: 14px;
+                    color: #7f8c8d;
+                }
+                
+                .btn-sm {
+                    padding: 6px 12px;
+                    font-size: 12px;
+                }
+            `;
+            document.head.appendChild(style);
+        });
+    </script>
+</body>
+</html>

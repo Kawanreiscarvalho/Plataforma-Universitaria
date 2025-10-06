@@ -1,0 +1,417 @@
+/* Estilos para os novos recursos - ATUALIZADO */
+
+/* Modal de Conteúdos */
+.conteudos-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.conteudo-item {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    border: 1px solid var(--light);
+    border-radius: 8px;
+    gap: 15px;
+    transition: var(--transition);
+}
+
+.conteudo-item:hover {
+    background: var(--bg-light);
+    transform: translateX(5px);
+}
+
+.conteudo-icon {
+    font-size: 2rem;
+    flex-shrink: 0;
+}
+
+.conteudo-info {
+    flex: 1;
+}
+
+.conteudo-info h4 {
+    margin: 0 0 5px 0;
+    color: var(--dark);
+}
+
+.conteudo-info p {
+    margin: 0;
+    color: var(--text-light);
+    font-size: 0.9rem;
+}
+
+.conteudo-actions {
+    display: flex;
+    gap: 10px;
+    flex-shrink: 0;
+}
+
+/* Feriados no calendário */
+.calendar-day.feriado {
+    background-color: rgba(231, 76, 60, 0.1);
+}
+
+.calendar-event.feriado {
+    background-color: #e74c3c;
+}
+
+.feriado-tooltip {
+    position: absolute;
+    bottom: 5px;
+    left: 5px;
+    right: 5px;
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 2px 5px;
+    border-radius: 3px;
+    font-size: 0.7em;
+    text-align: center;
+    display: none;
+    z-index: 10;
+}
+
+.calendar-day:hover .feriado-tooltip {
+    display: block;
+}
+
+/* Textos de ajuda */
+.text-help {
+    color: var(--text-light);
+    font-size: 0.8rem;
+    display: block;
+    margin-top: 5px;
+}
+
+/* Informações de entrega */
+.entrega-info {
+    background: var(--bg-light);
+    padding: 15px;
+    border-radius: 5px;
+    margin-top: 20px;
+    border-left: 4px solid var(--primary);
+}
+
+.text-danger {
+    color: var(--danger);
+    font-weight: 600;
+}
+
+.text-success {
+    color: var(--success);
+    font-weight: 600;
+}
+
+/* Ícones coloridos */
+.text-primary { color: var(--primary); }
+.text-success { color: var(--success); }
+.text-danger { color: var(--danger); }
+.text-warning { color: var(--warning); }
+.text-secondary { color: var(--secondary); }
+
+/* Botões pequenos */
+.btn-sm {
+    padding: 8px 12px;
+    font-size: 0.8rem;
+}
+
+/* Modal de Entrega */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.modal-content {
+    background-color: white;
+    margin: 15% auto;
+    padding: 25px;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 600px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+    from { transform: translateY(-50px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid var(--light);
+}
+
+.modal-header h3 {
+    color: var(--dark);
+    margin: 0;
+    font-size: 1.4rem;
+}
+
+.close {
+    color: #aaa;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.close:hover {
+    color: var(--dark);
+}
+
+.modal-body {
+    margin-bottom: 25px;
+}
+
+.modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+}
+
+/* Chat de Teste */
+.chat-teste {
+    display: flex;
+    flex-direction: column;
+    height: 500px;
+    border: 1px solid var(--light);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.chat-messages-teste {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+    background: var(--bg-light);
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.chat-input-teste {
+    padding: 15px;
+    background: white;
+    border-top: 1px solid var(--light);
+    display: flex;
+    gap: 10px;
+}
+
+.chat-input-teste input {
+    flex: 1;
+    padding: 12px 15px;
+    border: 1px solid var(--light);
+    border-radius: 25px;
+    outline: none;
+}
+
+/* Status de entrega */
+.status-entregue {
+    background: rgba(46, 204, 113, 0.2);
+    color: var(--success);
+    padding: 4px 8px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+/* Melhorias de responsividade */
+@media (max-width: 768px) {
+    .conteudo-item {
+        flex-direction: column;
+        text-align: center;
+        gap: 10px;
+    }
+    
+    .conteudo-actions {
+        justify-content: center;
+    }
+    
+    .feriado-tooltip {
+        font-size: 0.6em;
+        padding: 2px 3px;
+    }
+    
+    .modal-content {
+        margin: 10% auto;
+        padding: 20px;
+    }
+    
+    .modal-footer {
+        flex-direction: column;
+    }
+    
+    .modal-footer button {
+        width: 100%;
+    }
+    
+    .chat-input-teste {
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 480px) {
+    .modal-content {
+        margin: 5% auto;
+        padding: 15px;
+    }
+    
+    .modal-header h3 {
+        font-size: 1.2rem;
+    }
+}
+
+/* Novos estilos para o calendário lateral */
+.calendar-sidebar {
+    width: 300px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: var(--shadow);
+    padding: 20px;
+    margin-left: 20px;
+}
+
+.calendar-navigation {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.calendar-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--dark);
+}
+
+.calendar-days-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 5px;
+    margin-bottom: 10px;
+}
+
+.calendar-day-cell {
+    text-align: center;
+    padding: 8px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.calendar-day-cell:hover {
+    background: var(--bg-light);
+}
+
+.calendar-day-cell.current {
+    background: var(--primary);
+    color: white;
+}
+
+.calendar-day-cell.has-event {
+    background: rgba(46, 204, 113, 0.2);
+    color: var(--success);
+    font-weight: bold;
+}
+
+.calendar-day-cell.feriado {
+    background: rgba(231, 76, 60, 0.2);
+    color: var(--danger);
+    font-weight: bold;
+}
+
+.calendar-events {
+    margin-top: 15px;
+}
+
+.calendar-event-item {
+    padding: 10px;
+    border-left: 3px solid var(--primary);
+    background: var(--bg-light);
+    margin-bottom: 8px;
+    border-radius: 4px;
+}
+
+.calendar-event-item.feriado {
+    border-left-color: var(--danger);
+}
+
+/* Layout para calendário na sidebar */
+.dashboard-content-with-calendar {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 20px;
+}
+
+/* Indicador de online */
+.online-dot {
+    width: 10px;
+    height: 10px;
+    background: var(--success);
+    border-radius: 50%;
+    margin-left: 10px;
+}
+
+/* Melhorias para os botões de ação */
+.btn-disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.btn-disabled:hover {
+    transform: none !important;
+}
+
+/* Animações para transições de abas */
+.tab-content {
+    animation: fadeIn 0.3s ease;
+}
+
+/* Estilos para formulários melhorados */
+.form-control:disabled {
+    background-color: var(--bg-light);
+    cursor: not-allowed;
+}
+
+/* Loading states */
+.loading {
+    opacity: 0.7;
+    pointer-events: none;
+}
+
+.loading::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    margin: -10px 0 0 -10px;
+    border: 3px solid var(--light);
+    border-top: 3px solid var(--primary);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}

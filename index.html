@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/index.css">
+    <title>EduChain - Acesso</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-left">
+            <h1>EduChain</h1>
+            <p>Plataforma de Gestão Universitária Descentralizada. Conectando estudantes, professores e diretores em uma experiência educacional integrada.</p>
+            
+            <ul class="features">
+                <li><i class="fas fa-check"></i> Gestão completa de atividades e calendário</li>
+                <li><i class="fas fa-check"></i> Comunicação integrada entre todos os usuários</li>
+                <li><i class="fas fa-check"></i> Controle de desempenho e analytics</li>
+                <li><i class="fas fa-check"></i> Sistema seguro e descentralizado</li>
+            </ul>
+        </div>
+        
+        <div class="login-right">
+            <div class="logo">
+                <h2>Bem-vindo ao EduChain</h2>
+                <p>Selecione seu perfil para continuar</p>
+            </div>
+            
+            <div class="role-selection" id="roleSelection">
+                <div class="role-card student" data-role="student">
+                    <div class="role-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <div class="role-info">
+                        <h3>Aluno</h3>
+                        <p>Acessar atividades, notas e calendário acadêmico</p>
+                    </div>
+                </div>
+                
+                <div class="role-card teacher" data-role="teacher">
+                    <div class="role-icon">
+                        <i class="fas fa-chalkboard-teacher"></i>
+                    </div>
+                    <div class="role-info">
+                        <h3>Professor</h3>
+                        <p>Gerenciar turmas, atividades e acompanhar alunos</p>
+                    </div>
+                </div>
+                
+                <div class="role-card director" data-role="director">
+                    <div class="role-icon">
+                        <i class="fas fa-user-tie"></i>
+                    </div>
+                    <div class="role-info">
+                        <h3>Diretor</h3>
+                        <p>Visualizar relatórios e gerenciar a instituição</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="login-form" id="loginForm">
+                <div class="form-group">
+                    <label for="email">E-mail</label>
+                    <input type="email" id="email" class="form-control" placeholder="seu@email.com">
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">Senha</label>
+                    <input type="password" id="password" class="form-control" placeholder="Sua senha">
+                </div>
+                
+                <button class="btn btn-primary" id="loginButton">Entrar</button>
+                <button class="btn back-button" id="backButton">Voltar</button>
+            </div>
+        </div>
+    </div>
+
+
+  <script src="js/index.js"></script>
+
+</body>
+</html>

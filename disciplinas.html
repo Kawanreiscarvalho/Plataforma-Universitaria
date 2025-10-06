@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/disciplinas.css">
+    <title>Minhas Disciplinas - EduChain</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <h2>EduChain</h2>
+                <p>Área do Aluno</p>
+            </div>
+            
+            <div class="user-info">
+                <img src="https://ui-avatars.com/api/?name=Ana+Aluna&background=2ecc71&color=fff" alt="Aluna">
+                <div class="user-details">
+                    <h4>Ana Silva</h4>
+                    <span>Engenharia de Software</span>
+                </div>
+            </div>
+            
+            <ul class="nav-links">
+                <li>
+                    <a href="aluno.html">
+                        <i class="fas fa-home"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="disciplinas.html" class="active">
+                        <i class="fas fa-book"></i>
+                        <span>Disciplinas</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="atividades-aluno.html">
+                        <i class="fas fa-tasks"></i>
+                        <span>Atividades</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="chat-aluno.html">
+                        <i class="fas fa-comments"></i>
+                        <span>Chat</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="fas fa-exclamation-circle"></i>
+                        <span>Reclamações</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="fas fa-calendar"></i>
+                        <span>Calendário</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="index.html">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>Sair</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="main-content">
+            <header>
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Pesquisar disciplinas..." id="searchInput">
+                </div>
+                
+                <div class="header-right">
+                    <div class="notification">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-count">3</span>
+                    </div>
+                    
+                    <div class="user-actions">
+                        <img src="https://ui-avatars.com/api/?name=Ana+Aluna&background=2ecc71&color=fff" alt="Aluna">
+                    </div>
+                </div>
+            </header>
+            
+            <div class="content">
+                <div class="page-title">
+                    <h1>Minhas Disciplinas</h1>
+                    <div class="filters">
+                        <div class="filter-group">
+                            <label for="courseFilter">Filtrar por Curso</label>
+                            <select id="courseFilter">
+                                <option value="">Todos os cursos</option>
+                                <!-- Os cursos serão carregados via JavaScript -->
+                            </select>
+                        </div>
+                        
+                        <div class="filter-group">
+                            <label for="periodFilter">Filtrar por Período</label>
+                            <select id="periodFilter">
+                                <option value="">Todos os períodos</option>
+                                <option value="1">1º Período</option>
+                                <option value="2">2º Período</option>
+                                <option value="3">3º Período</option>
+                                <option value="4">4º Período</option>
+                                <option value="5">5º Período</option>
+                                <option value="6">6º Período</option>
+                                <option value="7">7º Período</option>
+                                <option value="8">8º Período</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Estatísticas Rápidas -->
+                <div class="stats-overview">
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-book"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="totalDisciplinas">0</h3>
+                            <p>Disciplinas Matriculadas</p>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="totalCargaHoraria">0h</h3>
+                            <p>Carga Horária Total</p>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-chalkboard-teacher"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="totalProfessores">0</h3>
+                            <p>Professores</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Lista de Disciplinas -->
+                <div class="disciplinas-container">
+                    <div class="disciplinas-grid" id="disciplinasList">
+                        <!-- As disciplinas serão carregadas aqui via JavaScript -->
+                    </div>
+                    
+                    <div class="empty-state" id="emptyState">
+                        <i class="fas fa-book-open"></i>
+                        <h3>Nenhuma disciplina encontrada</h3>
+                        <p>Não há disciplinas matriculadas ou os filtros aplicados não retornaram resultados.</p>
+                    </div>
+                </div>
+                
+                <!-- Modal de Detalhes da Disciplina -->
+                <div id="disciplinaModal" class="modal">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3>Detalhes da Disciplina</h3>
+                            <span class="close">&times;</span>
+                        </div>
+                        <div class="modal-body">
+                            <div class="disciplina-details">
+                                <h4 id="modalDisciplinaNome"></h4>
+                                <div class="detail-row">
+                                    <div class="detail-item">
+                                        <strong>Código:</strong>
+                                        <span id="modalDisciplinaCodigo"></span>
+                                    </div>
+                                    <div class="detail-item">
+                                        <strong>Curso:</strong>
+                                        <span id="modalDisciplinaCurso"></span>
+                                    </div>
+                                </div>
+                                <div class="detail-row">
+                                    <div class="detail-item">
+                                        <strong>Período:</strong>
+                                        <span id="modalDisciplinaPeriodo"></span>
+                                    </div>
+                                    <div class="detail-item">
+                                        <strong>Carga Horária:</strong>
+                                        <span id="modalDisciplinaCargaHoraria"></span>
+                                    </div>
+                                </div>
+                                <div class="detail-row">
+                                    <div class="detail-item">
+                                        <strong>Professor:</strong>
+                                        <span id="modalDisciplinaProfessor"></span>
+                                    </div>
+                                    <div class="detail-item">
+                                        <strong>Status:</strong>
+                                        <span id="modalDisciplinaStatus"></span>
+                                    </div>
+                                </div>
+                                <div class="detail-description">
+                                    <strong>Descrição:</strong>
+                                    <p id="modalDisciplinaDescricao"></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-secondary" id="closeModal">Fechar</button>
+                            <button class="btn btn-primary" id="contactProfessor">
+                                <i class="fas fa-comment"></i> Contatar Professor
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/disciplinas.js"></script>
+</body>
+</html>

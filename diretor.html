@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/diretor.css">
+    <title>Painel do Diretor - EduChain</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <h2>EduChain</h2>
+                <p>Painel do Diretor</p>
+            </div>
+            
+            <div class="user-info">
+                <img src="https://ui-avatars.com/api/?name=Carlos+Diretor&background=3498db&color=fff" alt="Usuário">
+                <div class="user-details">
+                    <h4>Carlos Silva</h4>
+                    <span>Diretor</span>
+                </div>
+            </div>
+            
+            <ul class="nav-links">
+                <li>
+                    <a href="#">
+                        <i class="fas fa-home"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="relatorios-diretor.html">
+                        <i class="fas fa-chart-bar"></i>
+                        <span>Relatórios</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="active">
+                        <i class="fas fa-book"></i>
+                        <span>Disciplinas</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="fas fa-users"></i>
+                        <span>Professores</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="fas fa-user-graduate"></i>
+                        <span>Alunos</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="config.html">
+                        <i class="fas fa-cog"></i>
+                        <span>Configurações</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="index.html">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>Sair</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Header -->
+            <header>
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Pesquisar disciplinas...">
+                </div>
+                
+                <div class="header-right">
+                    <div class="notification">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-count">5</span>
+                    </div>
+                    
+                    <div class="user-actions">
+                        <img src="https://ui-avatars.com/api/?name=Carlos+Diretor&background=3498db&color=fff" alt="Usuário">
+                    </div>
+                </div>
+            </header>
+            
+            <!-- Content Area -->
+            <div class="content">
+                <div class="page-title">
+                    <h1>Gerenciamento de Disciplinas</h1>
+                    <button class="btn btn-primary" id="newCourseBtn">
+                        <i class="fas fa-plus"></i> Novo Curso
+                    </button>
+                </div>
+                
+                <!-- Tabs -->
+                <div class="tabs">
+                    <div class="tab active" data-tab="courses">Cursos e Disciplinas</div>
+                    <div class="tab" data-tab="add">Adicionar Disciplina</div>
+                    <div class="tab" data-tab="course-management">Gerenciar Cursos</div>
+                </div>
+                
+                <!-- Courses and Disciplines -->
+                <div class="tab-content active" id="courses">
+                    <div class="courses-list" id="coursesContainer">
+                        <!-- Os cursos serão carregados aqui via JavaScript -->
+                    </div>
+                </div>
+                
+                <!-- Add Discipline -->
+                <div class="tab-content" id="add">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Adicionar Nova Disciplina</h2>
+                        </div>
+                        
+                        <form id="disciplineForm">
+                            <div class="form-group">
+                                <label for="courseSelect">Selecionar Curso</label>
+                                <select id="courseSelect" class="form-control" required>
+                                    <option value="">Selecione um curso</option>
+                                    <option value="">Direito</option>
+                                    <option value="">Engenharia</option>
+                                    <option value="">Ciência da computação</option>
+                                    <option value="">Administração</option>
+                                    <!-- Os cursos serão carregados aqui via JavaScript -->
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="periodSelect">Período</label>
+                                <select id="periodSelect" class="form-control" required>
+                                    <option value="">Selecione o período</option>
+                                    <option value="1">1º Período</option>
+                                    <option value="2">2º Período</option>
+                                    <option value="3">3º Período</option>
+                                    <option value="4">4º Período</option>
+                                    <option value="5">5º Período</option>
+                                    <option value="6">6º Período</option>
+                                    <option value="7">7º Período</option>
+                                    <option value="8">8º Período</option>
+                                    <option value="9">9º Período</option>
+                                    <option value="10">10º Período</option>
+                                    <option value="11">11º Período</option>
+                                    <option value="12">12º Período</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="disciplineName">Nome da Disciplina</label>
+                                <input type="text" id="disciplineName" class="form-control" placeholder="Ex: Cálculo I" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="disciplineCode">Código da Disciplina</label>
+                                <input type="text" id="disciplineCode" class="form-control" placeholder="Ex: MAT101" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="workload">Carga Horária</label>
+                                <input type="number" id="workload" class="form-control" placeholder="Ex: 60" min="1" required>
+                            </div>
+                            
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-save"></i> Salvar Disciplina
+                            </button>
+                        </form>
+                    </div>
+                </div>
+                
+                <!-- Course Management -->
+                <div class="tab-content" id="course-management">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Gerenciamento de Cursos Ativos</h2>
+                            <p>Selecione os cursos que estarão disponíveis no sistema</p>
+                        </div>
+                        
+                        <div class="course-management-container">
+                            <div class="management-info">
+                                <i class="fas fa-info-circle"></i>
+                                <p>Os cursos marcados como ativos estarão disponíveis para professores e alunos. 
+                                   Cursos inativos não aparecerão nas seleções.</p>
+                            </div>
+                            
+                            <div class="courses-toggle-list" id="coursesToggleContainer">
+                                <!-- Os cursos com toggle serão carregados aqui via JavaScript -->
+                            </div>
+                            
+                            <div class="management-actions">
+                                <button class="btn btn-primary" id="saveCoursesBtn">
+                                    <i class="fas fa-save"></i> Salvar Configurações
+                                </button>
+                                <button class="btn btn-success" id="activateAllBtn">
+                                    <i class="fas fa-check-circle"></i> Ativar Todos
+                                </button>
+                                <button class="btn btn-danger" id="deactivateAllBtn">
+                                    <i class="fas fa-times-circle"></i> Desativar Todos
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Confirmação de Exclusão -->
+    <div id="deleteCourseModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Confirmar Exclusão</h3>
+                <span class="close">&times;</span>
+            </div>
+            <div class="modal-body">
+                <p>Tem certeza que deseja excluir o curso <strong id="courseNameToDelete"></strong>?</p>
+                <p class="text-warning">Esta ação não pode ser desfeita. Todas as disciplinas deste curso também serão excluídas.</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" id="cancelDelete">Cancelar</button>
+                <button class="btn btn-danger" id="confirmDelete">Excluir Curso</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/diretor.js"></script>
+</body>
+</html>

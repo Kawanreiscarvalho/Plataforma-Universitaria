@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/professor.css">
+    <title>Relatórios - EduChain</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Estilos específicos para a página de relatórios */
+        .form-container {
+            background: white;
+            border-radius: 8px;
+            padding: 25px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 25px;
+        }
+        
+        .reports-history {
+            background: white;
+            border-radius: 8px;
+            padding: 25px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .report-item {
+            border-bottom: 1px solid #ecf0f1;
+            padding: 15px 0;
+        }
+        
+        .report-item:last-child {
+            border-bottom: none;
+        }
+        
+        .report-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        
+        .report-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #2c3e50;
+            margin: 0;
+        }
+        
+        .report-date {
+            font-size: 14px;
+            color: #7f8c8d;
+        }
+        
+        .report-meta {
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+        
+        .report-content {
+            font-size: 14px;
+            line-height: 1.5;
+            color: #2c3e50;
+        }
+        
+        .report-status {
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+        
+        .status-pending {
+            background-color: #ffeaa7;
+            color: #d35400;
+        }
+        
+        .status-reviewed {
+            background-color: #d1f7c4;
+            color: #27ae60;
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 40px;
+            color: #7f8c8d;
+        }
+        
+        .empty-state i {
+            font-size: 48px;
+            margin-bottom: 15px;
+            color: #bdc3c7;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar (igual à página do professor) -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <h2>EduChain</h2>
+                <p>Plataforma Universitária</p>
+            </div>
+            
+            <div class="user-info">
+                <img src="https://ui-avatars.com/api/?name=João+Silva&background=3498db&color=fff" alt="Usuário">
+                <div class="user-details">
+                    <h4>João Silva</h4>
+                    <span>Professor</span>
+                </div>
+            </div>
+            
+            <ul class="nav-links">
+                <li>
+                    <a href="professor.html">
+                        <i class="fas fa-home"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="fas fa-calendar-alt"></i>
+                        <span>Calendário</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="fas fa-comments"></i>
+                        <span>Mensagens</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="atividade.html">
+                        <i class="fas fa-tasks"></i>
+                        <span>Atividades</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="relatorios-professor.html" class="active">
+                        <i class="fas fa-chart-bar"></i>
+                        <span>Relatórios</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="fas fa-cog"></i>
+                        <span>Configurações</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="index.html">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>Sair</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Header -->
+            <header>
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Pesquisar...">
+                </div>
+                
+                <div class="header-right">
+                    <div class="notification">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-count">3</span>
+                    </div>
+                    
+                    <div class="user-actions">
+                        <img src="https://ui-avatars.com/api/?name=João+Silva&background=3498db&color=fff" alt="Usuário">
+                    </div>
+                </div>
+            </header>
+            
+            <!-- Content Area -->
+            <div class="content">
+                <div class="page-title">
+                    <h1>Relatórios Acadêmicos</h1>
+                    <p>Envie relatórios sobre o desempenho das turmas para a direção</p>
+                </div>
+                
+                <!-- Formulário de Novo Relatório -->
+                <div class="form-container">
+                    <h2>Novo Relatório</h2>
+                    <form id="reportForm">
+                        <div class="form-group">
+                            <label for="reportTitle">Título do Relatório</label>
+                            <input type="text" id="reportTitle" class="form-control" placeholder="Ex: Desempenho da Turma em Cálculo I" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="reportCourse">Curso</label>
+                            <select id="reportCourse" class="form-control" required>
+                                <option value="">Selecione o curso</option>
+                                <option value="engenharia">Engenharia de Software</option>
+                                <option value="matematica">Matemática</option>
+                                <option value="fisica">Física</option>
+                                <option value="historia">História</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="reportClass">Turma</label>
+                            <input type="text" id="reportClass" class="form-control" placeholder="Ex: A101" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="reportPeriod">Período</label>
+                            <select id="reportPeriod" class="form-control" required>
+                                <option value="">Selecione o período</option>
+                                <option value="1">1º Período</option>
+                                <option value="2">2º Período</option>
+                                <option value="3">3º Período</option>
+                                <option value="4">4º Período</option>
+                                <option value="5">5º Período</option>
+                                <option value="6">6º Período</option>
+                                <option value="7">7º Período</option>
+                                <option value="8">8º Período</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="reportContent">Conteúdo do Relatório</label>
+                            <textarea id="reportContent" class="form-control" rows="8" placeholder="Descreva o desempenho da turma, pontos fortes, dificuldades, sugestões..." required></textarea>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-paper-plane"></i> Enviar Relatório
+                        </button>
+                    </form>
+                </div>
+                
+                <!-- Histórico de Relatórios -->
+                <div class="reports-history">
+                    <h2>Relatórios Enviados</h2>
+                    <div id="reportsList">
+                        <!-- Relatórios serão carregados aqui via JavaScript -->
+                        <div class="empty-state">
+                            <i class="fas fa-file-alt"></i>
+                            <p>Nenhum relatório enviado ainda</p>
+                            <small>Os relatórios que você enviar aparecerão aqui</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Sistema de armazenamento simulado (localStorage)
+        function getProfessorReports() {
+            const reports = localStorage.getItem('professorReports');
+            return reports ? JSON.parse(reports) : [];
+        }
+        
+        function saveProfessorReports(reports) {
+            localStorage.setItem('professorReports', JSON.stringify(reports));
+        }
+        
+        function getCurrentProfessor() {
+            // Simulando dados do professor logado
+            return {
+                id: 1,
+                name: "Prof. João Silva"
+            };
+        }
+        
+        // Carregar relatórios do professor
+        function loadProfessorReports() {
+            const reportsList = document.getElementById('reportsList');
+            const reports = getProfessorReports();
+            const currentProfessor = getCurrentProfessor();
+            
+            // Filtrar apenas os relatórios deste professor
+            const professorReports = reports.filter(report => report.professorId === currentProfessor.id);
+            
+            if (professorReports.length === 0) {
+                reportsList.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-file-alt"></i>
+                        <p>Nenhum relatório enviado ainda</p>
+                        <small>Os relatórios que você enviar aparecerão aqui</small>
+                    </div>
+                `;
+                return;
+            }
+            
+            // Ordenar por data (mais recente primeiro)
+            professorReports.sort((a, b) => new Date(b.date) - new Date(a.date));
+            
+            // Exibir relatórios
+            reportsList.innerHTML = '';
+            professorReports.forEach(report => {
+                const reportDate = new Date(report.date).toLocaleDateString('pt-BR');
+                
+                const reportElement = document.createElement('div');
+                reportElement.className = 'report-item';
+                reportElement.innerHTML = `
+                    <div class="report-header">
+                        <h3 class="report-title">${report.title}</h3>
+                        <span class="report-status status-${report.status}">
+                            ${report.status === 'pending' ? 'Pendente' : 'Analisado'}
+                        </span>
+                    </div>
+                    <div class="report-meta">
+                        <strong>Curso:</strong> ${report.course} | 
+                        <strong>Turma:</strong> ${report.class} | 
+                        <strong>Período:</strong> ${report.period} | 
+                        <strong>Data:</strong> ${reportDate}
+                    </div>
+                    <div class="report-content">
+                        ${report.content.length > 200 ? report.content.substring(0, 200) + '...' : report.content}
+                    </div>
+                `;
+                
+                reportsList.appendChild(reportElement);
+            });
+        }
+        
+        // Enviar novo relatório
+        document.getElementById('reportForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const title = document.getElementById('reportTitle').value;
+            const course = document.getElementById('reportCourse').value;
+            const courseText = document.getElementById('reportCourse').options[document.getElementById('reportCourse').selectedIndex].text;
+            const classValue = document.getElementById('reportClass').value;
+            const period = document.getElementById('reportPeriod').value;
+            const periodText = document.getElementById('reportPeriod').options[document.getElementById('reportPeriod').selectedIndex].text;
+            const content = document.getElementById('reportContent').value;
+            
+            const currentProfessor = getCurrentProfessor();
+            
+            const newReport = {
+                id: Date.now(), // ID único baseado no timestamp
+                title: title,
+                professor: currentProfessor.name,
+                professorId: currentProfessor.id,
+                course: courseText,
+                courseId: course,
+                class: classValue,
+                period: periodText,
+                periodId: period,
+                content: content,
+                date: new Date().toISOString(),
+                status: 'pending' // Status inicial: pendente de análise
+            };
+            
+            // Salvar relatório
+            const reports = getProfessorReports();
+            reports.push(newReport);
+            saveProfessorReports(reports);
+            
+            // Recarregar a lista
+            loadProfessorReports();
+            
+            // Limpar formulário
+            document.getElementById('reportForm').reset();
+            
+            // Feedback para o usuário
+            alert('Relatório enviado com sucesso!');
+        });
+        
+        // Inicializar a página
+        document.addEventListener('DOMContentLoaded', function() {
+            loadProfessorReports();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,950 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atividades - Área do Aluno</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Estilos gerais */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f5f7f9;
+            color: #2c3e50;
+            line-height: 1.6;
+        }
+
+        .container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 250px;
+            background: linear-gradient(135deg, #27ae60, #2ecc71);
+            color: white;
+            height: 100vh;
+            position: fixed;
+            overflow-y: auto;
+        }
+
+        .sidebar-header {
+            padding: 20px;
+            text-align: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .sidebar-header h2 {
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+
+        .user-info {
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .user-info img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-right: 15px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .user-details h4 {
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+
+        .user-details span {
+            font-size: 12px;
+            opacity: 0.8;
+        }
+
+        .nav-links {
+            list-style: none;
+            padding: 20px 0;
+        }
+
+        .nav-links li {
+            margin-bottom: 5px;
+        }
+
+        .nav-links a {
+            display: flex;
+            align-items: center;
+            padding: 12px 20px;
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+            border-left: 4px solid #2ecc71;
+        }
+
+        .nav-links i {
+            margin-right: 10px;
+            width: 20px;
+            text-align: center;
+        }
+
+        /* Conteúdo principal */
+        .main-content {
+            flex: 1;
+            margin-left: 250px;
+            width: calc(100% - 250px);
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 30px;
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .search-box {
+            position: relative;
+            width: 300px;
+        }
+
+        .search-box i {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #7f8c8d;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 10px 15px 10px 40px;
+            border: 1px solid #ddd;
+            border-radius: 30px;
+            outline: none;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+        }
+
+        .notification {
+            position: relative;
+            margin-right: 20px;
+            cursor: pointer;
+        }
+
+        .notification i {
+            font-size: 20px;
+            color: #7f8c8d;
+        }
+
+        .notification-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background-color: #e74c3c;
+            color: white;
+            font-size: 12px;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .user-actions img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        /* Conteúdo */
+        .content {
+            padding: 30px;
+        }
+
+        .page-title {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .page-title h1 {
+            font-size: 28px;
+            color: #2c3e50;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn i {
+            margin-right: 8px;
+        }
+
+        .btn-primary {
+            background-color: #3498db;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #2980b9;
+        }
+
+        .btn-success {
+            background-color: #2ecc71;
+            color: white;
+        }
+
+        .btn-success:hover {
+            background-color: #27ae60;
+        }
+
+        .btn-danger {
+            background-color: #e74c3c;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background-color: #c0392b;
+        }
+
+        /* Filtros */
+        .filters {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .filter-group {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .filter-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+
+        .filter-group select, .filter-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        /* Lista de atividades */
+        .activities-list {
+            display: grid;
+            gap: 20px;
+        }
+
+        .activity-item {
+            background-color: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .activity-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .activity-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 15px;
+        }
+
+        .activity-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        .activity-type {
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 500;
+            color: white;
+        }
+
+        .type-activity {
+            background-color: #3498db;
+        }
+
+        .type-exam {
+            background-color: #e74c3c;
+        }
+
+        .type-recovery {
+            background-color: #f39c12;
+        }
+
+        .type-online {
+            background-color: #9b59b6;
+        }
+
+        .activity-details {
+            margin-bottom: 15px;
+        }
+
+        .activity-meta {
+            display: flex;
+            justify-content: space-between;
+            color: #7f8c8d;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+
+        .activity-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .activity-status {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .status-pending {
+            background-color: #ffeaa7;
+            color: #d35400;
+        }
+
+        .status-submitted {
+            background-color: #d1f7c4;
+            color: #27ae60;
+        }
+
+        .status-late {
+            background-color: #ffd1d1;
+            color: #c0392b;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .modal-content {
+            background-color: #fff;
+            margin: 10% auto;
+            padding: 0;
+            border-radius: 8px;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .modal-header {
+            padding: 15px 20px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-header h3 {
+            margin: 0;
+            color: #2c3e50;
+        }
+
+        .close {
+            color: #aaa;
+            font-size: 24px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close:hover {
+            color: #000;
+        }
+
+        .modal-body {
+            padding: 20px;
+        }
+
+        .modal-footer {
+            padding: 15px 20px;
+            border-top: 1px solid #eee;
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+
+        .form-group input, .form-group textarea, .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .form-group textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 60px;
+            }
+            .sidebar-header h2, .user-details, .nav-links span {
+                display: none;
+            }
+            .user-info {
+                justify-content: center;
+            }
+            .user-info img {
+                margin-right: 0;
+            }
+            .nav-links a {
+                justify-content: center;
+            }
+            .nav-links i {
+                margin-right: 0;
+                font-size: 20px;
+            }
+            .main-content {
+                margin-left: 60px;
+                width: calc(100% - 60px);
+            }
+            .filters {
+                flex-direction: column;
+            }
+            .activity-header {
+                flex-direction: column;
+                gap: 10px;
+            }
+            .activity-meta {
+                flex-direction: column;
+                gap: 5px;
+            }
+            .activity-actions {
+                flex-wrap: wrap;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <h2>EduChain</h2>
+                <p>Área do Aluno</p>
+            </div>
+            
+            <div class="user-info">
+                <img src="https://ui-avatars.com/api/?name=Ana+Aluna&background=2ecc71&color=fff" alt="Aluna">
+                <div class="user-details">
+                    <h4>Ana Silva</h4>
+                    <span>Engenharia de Software</span>
+                </div>
+            </div>
+            
+            <ul class="nav-links">
+                <li>
+                    <a href="aluno.html">
+                        <i class="fas fa-home"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="disciplinas.html">
+                        <i class="fas fa-book"></i>
+                        <span>Disciplinas</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="atividades-aluno.html" class="active">
+                        <i class="fas fa-tasks"></i>
+                        <span>Atividades</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="chat-aluno.html">
+                        <i class="fas fa-comments"></i>
+                        <span>Chat</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="fas fa-exclamation-circle"></i>
+                        <span>Reclamações</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="fas fa-calendar"></i>
+                        <span>Calendário</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="index.html">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>Sair</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="main-content">
+            <header>
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Pesquisar atividades..." id="searchInput">
+                </div>
+                
+                <div class="header-right">
+                    <div class="notification">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-count">3</span>
+                    </div>
+                    
+                    <div class="user-actions">
+                        <img src="https://ui-avatars.com/api/?name=Ana+Aluna&background=2ecc71&color=fff" alt="Aluna">
+                    </div>
+                </div>
+            </header>
+            
+            <div class="content">
+                <div class="page-title">
+                    <h1>Atividades</h1>
+                </div>
+                
+                <!-- Filtros -->
+                <div class="filters">
+                    <div class="filter-group">
+                        <label for="filterDiscipline">Disciplina</label>
+                        <select id="filterDiscipline">
+                            <option value="">Todas as disciplinas</option>
+                            <option value="matematica">Matemática</option>
+                            <option value="fisica">Física</option>
+                            <option value="programacao">Programação</option>
+                            <option value="historia">História</option>
+                        </select>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label for="filterStatus">Status</label>
+                        <select id="filterStatus">
+                            <option value="">Todos os status</option>
+                            <option value="pending">Pendentes</option>
+                            <option value="submitted">Entregues</option>
+                            <option value="late">Atrasadas</option>
+                        </select>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label for="filterDate">Ordenar por</label>
+                        <select id="filterDate">
+                            <option value="newest">Mais recentes</option>
+                            <option value="oldest">Mais antigas</option>
+                            <option value="deadline">Prazo de entrega</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <!-- Lista de Atividades -->
+                <div class="activities-list" id="activitiesList">
+                    <!-- As atividades serão carregadas aqui via JavaScript -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para Upload de Arquivo -->
+    <div id="uploadModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Entregar Atividade</h3>
+                <span class="close">&times;</span>
+            </div>
+            <div class="modal-body">
+                <form id="uploadForm">
+                    <div class="form-group">
+                        <label for="fileUpload">Selecione o arquivo para enviar:</label>
+                        <input type="file" id="fileUpload" accept=".pdf,.doc,.docx,.txt,.zip,.rar" required>
+                        <small>Formatos aceitos: PDF, DOC, DOCX, TXT, ZIP, RAR (Tamanho máximo: 10MB)</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="comments">Comentários (opcional):</label>
+                        <textarea id="comments" placeholder="Adicione algum comentário sobre sua entrega..."></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" id="cancelUpload">Cancelar</button>
+                <button class="btn btn-primary" id="submitUpload">Enviar Entrega</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para Visualizar Detalhes -->
+    <div id="detailModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Detalhes da Atividade</h3>
+                <span class="close">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div id="modalActivityContent">
+                    <!-- Conteúdo dos detalhes da atividade será carregado aqui -->
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" id="closeDetailModal">Fechar</button>
+                <button class="btn btn-primary" id="deliverFromDetail">Entregar Atividade</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Variáveis para os modais
+            const uploadModal = document.getElementById('uploadModal');
+            const detailModal = document.getElementById('detailModal');
+            const closeBtns = document.querySelectorAll('.close');
+            const cancelUploadBtn = document.getElementById('cancelUpload');
+            const submitUploadBtn = document.getElementById('submitUpload');
+            const closeDetailBtn = document.getElementById('closeDetailModal');
+            const deliverDetailBtn = document.getElementById('deliverFromDetail');
+            const uploadForm = document.getElementById('uploadForm');
+            
+            // Variáveis para controle de estado
+            let currentActivityId = null;
+            
+            // Dados simulados de atividades (em um sistema real, viriam do backend)
+            const activities = [
+                {
+                    id: 1,
+                    title: "Trabalho de Matemática",
+                    type: "activity",
+                    discipline: "matematica",
+                    description: "Resolver os exercícios do capítulo 5 sobre derivadas.",
+                    dueDate: "2023-10-25T23:59",
+                    professor: "Prof. Carlos Silva",
+                    status: "pending"
+                },
+                {
+                    id: 2,
+                    title: "Prova de Física",
+                    type: "exam",
+                    discipline: "fisica",
+                    description: "Prova sobre termodinâmica e leis da física.",
+                    dueDate: "2023-10-28T23:59",
+                    professor: "Prof. Ana Santos",
+                    status: "pending"
+                },
+                {
+                    id: 3,
+                    title: "Projeto de Programação",
+                    type: "activity",
+                    discipline: "programacao",
+                    description: "Desenvolver um sistema web com HTML, CSS e JavaScript.",
+                    dueDate: "2023-11-05T23:59",
+                    professor: "Prof. João Pereira",
+                    status: "submitted",
+                    submissionDate: "2023-10-20T14:30"
+                },
+                {
+                    id: 4,
+                    title: "Relatório de História",
+                    type: "activity",
+                    discipline: "historia",
+                    description: "Preparar relatório sobre a Revolução Industrial.",
+                    dueDate: "2023-10-22T23:59",
+                    professor: "Prof. Maria Oliveira",
+                    status: "late"
+                }
+            ];
+            
+            // Carregar atividades na lista
+            function loadActivities() {
+                const activitiesList = document.getElementById('activitiesList');
+                const disciplineFilter = document.getElementById('filterDiscipline').value;
+                const statusFilter = document.getElementById('filterStatus').value;
+                const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+                
+                // Filtrar atividades
+                const filteredActivities = activities.filter(activity => {
+                    return (!disciplineFilter || activity.discipline === disciplineFilter) &&
+                           (!statusFilter || activity.status === statusFilter) &&
+                           (!searchTerm || 
+                            activity.title.toLowerCase().includes(searchTerm) ||
+                            activity.description.toLowerCase().includes(searchTerm) ||
+                            activity.professor.toLowerCase().includes(searchTerm));
+                });
+                
+                // Limpar lista
+                activitiesList.innerHTML = '';
+                
+                if (filteredActivities.length === 0) {
+                    activitiesList.innerHTML = `
+                        <div class="activity-item">
+                            <p>Nenhuma atividade encontrada com os filtros selecionados.</p>
+                        </div>
+                    `;
+                    return;
+                }
+                
+                // Adicionar atividades à lista
+                filteredActivities.forEach(activity => {
+                    const dueDate = new Date(activity.dueDate);
+                    const now = new Date();
+                    const isLate = now > dueDate && activity.status !== 'submitted';
+                    
+                    const activityElement = document.createElement('div');
+                    activityElement.className = 'activity-item';
+                    activityElement.innerHTML = `
+                        <div class="activity-header">
+                            <h3 class="activity-title">${activity.title}</h3>
+                            <span class="activity-type type-${activity.type}">
+                                ${activity.type === 'activity' ? 'Atividade' : 
+                                  activity.type === 'exam' ? 'Prova' : 
+                                  activity.type === 'recovery' ? 'Recuperação' : 'Aula Online'}
+                            </span>
+                        </div>
+                        <div class="activity-details">
+                            <p>${activity.description}</p>
+                        </div>
+                        <div class="activity-meta">
+                            <div><strong>Disciplina:</strong> ${activity.discipline}</div>
+                            <div><strong>Professor:</strong> ${activity.professor}</div>
+                            <div><strong>Entrega:</strong> ${dueDate.toLocaleDateString('pt-BR')}</div>
+                        </div>
+                        <div class="activity-actions">
+                            <button class="btn btn-primary btn-view-details" data-id="${activity.id}">
+                                <i class="fas fa-info-circle"></i> Detalhes
+                            </button>
+                            ${activity.status === 'pending' || isLate ? `
+                                <button class="btn btn-success btn-deliver" data-id="${activity.id}">
+                                    <i class="fas fa-upload"></i> Entregue
+                                </button>
+                            ` : ''}
+                            <span class="activity-status status-${activity.status}">
+                                ${activity.status === 'pending' ? 'Pendente' : 
+                                 activity.status === 'submitted' ? 'Entregue' : 'Atrasada'}
+                            </span>
+                        </div>
+                    `;
+                    
+                    activitiesList.appendChild(activityElement);
+                });
+                
+                // Adicionar event listeners aos botões
+                document.querySelectorAll('.btn-view-details').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const activityId = this.getAttribute('data-id');
+                        showActivityDetails(activityId);
+                    });
+                });
+                
+                document.querySelectorAll('.btn-deliver').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const activityId = this.getAttribute('data-id');
+                        openUploadModal(activityId);
+                    });
+                });
+            }
+            
+            // Mostrar detalhes da atividade
+            function showActivityDetails(activityId) {
+                const activity = activities.find(a => a.id == activityId);
+                if (!activity) return;
+                
+                const dueDate = new Date(activity.dueDate);
+                const modalContent = document.getElementById('modalActivityContent');
+                
+                modalContent.innerHTML = `
+                    <h4>${activity.title}</h4>
+                    <p><strong>Disciplina:</strong> ${activity.discipline}</p>
+                    <p><strong>Professor:</strong> ${activity.professor}</p>
+                    <p><strong>Data de entrega:</strong> ${dueDate.toLocaleDateString('pt-BR')} às ${dueDate.toLocaleTimeString('pt-BR')}</p>
+                    <p><strong>Descrição:</strong></p>
+                    <p>${activity.description}</p>
+                    ${activity.status === 'submitted' ? `
+                        <p><strong>Entregue em:</strong> ${new Date(activity.submissionDate).toLocaleDateString('pt-BR')}</p>
+                    ` : ''}
+                `;
+                
+                // Mostrar ou esconder botão de entrega baseado no status
+                if (activity.status === 'pending' || new Date() > dueDate) {
+                    deliverDetailBtn.style.display = 'block';
+                    deliverDetailBtn.setAttribute('data-id', activityId);
+                } else {
+                    deliverDetailBtn.style.display = 'none';
+                }
+                
+                detailModal.style.display = 'block';
+            }
+            
+            // Abrir modal de upload
+            function openUploadModal(activityId) {
+                currentActivityId = activityId;
+                uploadModal.style.display = 'block';
+            }
+            
+            // Fechar modal de upload
+            function closeUploadModal() {
+                uploadModal.style.display = 'none';
+                uploadForm.reset();
+                currentActivityId = null;
+            }
+            
+            // Fechar modal de detalhes
+            function closeDetailModal() {
+                detailModal.style.display = 'none';
+            }
+            
+            // Processar envio de arquivo
+            function processFileUpload() {
+                const fileInput = document.getElementById('fileUpload');
+                const comments = document.getElementById('comments').value;
+                
+                if (!fileInput.files.length) {
+                    alert('Por favor, selecione um arquivo para enviar.');
+                    return false;
+                }
+                
+                const file = fileInput.files[0];
+                const maxSize = 10 * 1024 * 1024; // 10MB
+                
+                if (file.size > maxSize) {
+                    alert('O arquivo é muito grande. O tamanho máximo permitido é 10MB.');
+                    return false;
+                }
+                
+                // Encontrar a atividade atual
+                const activityIndex = activities.findIndex(a => a.id == currentActivityId);
+                if (activityIndex === -1) return false;
+                
+                // Atualizar status da atividade
+                activities[activityIndex].status = 'submitted';
+                activities[activityIndex].submissionDate = new Date().toISOString();
+                
+                alert(`Arquivo "${file.name}" enviado com sucesso!`);
+                loadActivities(); // Recarregar a lista
+                
+                return true;
+            }
+            
+            // Event listeners para fechar modais
+            closeBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    if (uploadModal.style.display === 'block') closeUploadModal();
+                    if (detailModal.style.display === 'block') closeDetailModal();
+                });
+            });
+            
+            cancelUploadBtn.addEventListener('click', closeUploadModal);
+            closeDetailBtn.addEventListener('click', closeDetailModal);
+            
+            // Event listener para entregar a partir do modal de detalhes
+            deliverDetailBtn.addEventListener('click', function() {
+                const activityId = this.getAttribute('data-id');
+                closeDetailModal();
+                openUploadModal(activityId);
+            });
+            
+            // Fechar modais clicando fora deles
+            window.addEventListener('click', function(event) {
+                if (event.target === uploadModal) closeUploadModal();
+                if (event.target === detailModal) closeDetailModal();
+            });
+            
+            // Processar envio do formulário de upload
+            submitUploadBtn.addEventListener('click', function() {
+                if (processFileUpload()) {
+                    closeUploadModal();
+                }
+            });
+            
+            // Event listeners para filtros
+            document.getElementById('filterDiscipline').addEventListener('change', loadActivities);
+            document.getElementById('filterStatus').addEventListener('change', loadActivities);
+            document.getElementById('filterDate').addEventListener('change', loadActivities);
+            document.getElementById('searchInput').addEventListener('input', loadActivities);
+            
+            // Carregar atividades inicialmente
+            loadActivities();
+        });
+    </script>
+
+<!-- Adicionar no início do script -->
+<script src="js/atividades-compartilhadas.js"></script>
+
+<script>
+// Substituir a função de carregar atividades
+function loadActivities() {
+    const activitiesList = document.getElementById('activitiesList');
+    const studentId = 1; // ID do aluno logado
+    
+    // Obter atividades do aluno
+    const activities = getStudentActivities(studentId);
+    
+    // Resto do código permanece igual, mas usando as atividades do sistema unificado
+    // ... (código existente)
+}
+</script>
+
+
+
+</body>
+</html>

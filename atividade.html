@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/atividade.css">
+    <title>Cadastro de Atividades - EduChain</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+<!-- Carregar o sistema unificado PRIMEIRO -->
+<script src="js/atividades-compartilhadas.js"></script>
+<script src="js/atividade.js"></script>
+
+
+<script>
+// Debug helper
+console.log('=== DEBUG SISTEMA DE ATIVIDADES ===');
+console.log('createActivity function exists:', typeof createActivity);
+console.log('getActivities function exists:', typeof getActivities);
+console.log('localStorage activities:', localStorage.getItem('activities'));
+</script>
+
+
+<!-- VERIFICAÇÃO DO SISTEMA UNIFICADO -->
+<script>
+console.log('=== VERIFICAÇÃO DO SISTEMA ===');
+console.log('createActivity existe?', typeof createActivity);
+console.log('getActivities existe?', typeof getActivities);
+
+// Se não existir, carregar o arquivo
+if (typeof createActivity === 'undefined') {
+    console.log('🚨 Sistema unificado não carregado!');
+    // Tentar carregar dinamicamente
+    const script = document.createElement('script');
+    script.src = 'js/atividades-compartilhadas.js';
+    document.head.appendChild(script);
+    console.log('📥 Tentando carregar atividades-compartilhadas.js...');
+}
+</script>
+
+
+    <div class="container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <h2>EduChain</h2>
+                <p>Plataforma Universitária</p>
+            </div>
+            
+            <div class="user-info">
+                <img src="https://ui-avatars.com/api/?name=João+Silva&background=3498db&color=fff" alt="Usuário">
+                <div class="user-details">
+                    <h4>João Silva</h4>
+                    <span>Professor</span>
+                </div>
+            </div>
+            
+            <ul class="nav-links">
+                <li>
+                    <a href="professor.html">
+                        <i class="fas fa-home"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="calendario-prof.html">
+                        <i class="fas fa-calendar-alt"></i>
+                        <span>Calendário</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="chat-prof.html">
+                        <i class="fas fa-comments"></i>
+                        <span>Mensagens</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="atividade.html" class="active">
+                        <i class="fas fa-tasks"></i>
+                        <span>Atividades</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="relatorios-professor.html">
+                        <i class="fas fa-chart-line"></i>
+                        <span>Relatórios</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="fas fa-cog"></i>
+                        <span>Configurações</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="index.html">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>Sair</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Header -->
+            <header>
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Pesquisar...">
+                </div>
+                
+                <div class="header-right">
+                    <div class="notification">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-count">3</span>
+                    </div>
+                    
+                    <div class="user-actions">
+                        <img src="https://ui-avatars.com/api/?name=João+Silva&background=3498db&color=fff" alt="Usuário">
+                    </div>
+                </div>
+            </header>
+            
+            <!-- Content Area -->
+            <div class="content">
+                <div class="page-title">
+                    <h1>Gestão de Atividades</h1>
+                    <button class="btn btn-primary" id="newAssignmentBtn">
+                        <i class="fas fa-plus"></i> Nova Atividade
+                    </button>
+                </div>
+                
+                <!-- Tabs -->
+                <div class="tabs">
+                    <div class="tab active" data-tab="create">Criar Atividade</div>
+                    <div class="tab" data-tab="list">Atividades Criadas</div>
+                    <div class="tab" data-tab="submissions">Submissões dos Alunos</div>
+                </div>
+                
+                <!-- Create Assignment -->
+                <div class="tab-content active" id="create">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Nova Atividade</h2>
+                        </div>
+                        
+                        <form id="assignmentForm">
+                            <div class="form-group">
+                                <label for="title">Título da Atividade</label>
+                                <input type="text" id="title" class="form-control" placeholder="Ex: Trabalho de Matemática" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="type">Tipo de Atividade</label>
+                                <select id="type" class="form-control" required>
+                                    <option value="">Selecione o tipo</option>
+                                    <option value="activity">Atividade</option>
+                                    <option value="exam">Prova</option>
+                                    <option value="recovery">Recuperação</option>
+                                    <option value="online">Aula Online</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+    <label for="discipline">Disciplina</label>
+    <select id="discipline" class="form-control" required>
+        <option value="">Selecione a disciplina</option>
+        <option value="1">Programação I (PROG101)</option>
+        <option value="2">Banco de Dados (BD201)</option>
+        <option value="3">Desenvolvimento Web (WEB301)</option>
+        <option value="4">Redes de Computadores (RED202)</option>
+        <option value="5">Engenharia de Software (ES302)</option>
+        <option value="6">Inteligência Artificial (IA401)</option>
+        <option value="7">Segurança da Informação (SEG402)</option>
+        <option value="8">Mobile Development (MOB501)</option>
+        <option value="9">Estrutura de Dados (ED202)</option>
+        <option value="10">Sistemas Operacionais (SO301)</option>
+        <option value="11">Computação em Nuvem (CLD401)</option>
+        <option value="12">DevOps e CI/CD (DEVOPS501)</option>
+    </select>
+</div>
+                            
+                            <div class="form-group">
+                                <label for="description">Descrição</label>
+                                <textarea id="description" class="form-control" placeholder="Descreva os detalhes da atividade..." required></textarea>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="dueDate">Data de Entrega</label>
+                                <input type="datetime-local" id="dueDate" class="form-control" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="file">Anexar Arquivo (Opcional)</label>
+                                <input type="file" id="file" class="form-control">
+                            </div>
+                            
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-save"></i> Salvar Atividade
+                            </button>
+                        </form>
+                    </div>
+                </div>
+                
+                <!-- Assignment List -->
+                <div class="tab-content" id="list">
+                    <div class="assignment-list" id="assignmentListContainer">
+                        <!-- As atividades serão carregadas via JavaScript -->
+                    </div>
+                </div>
+                
+                <!-- Submissions -->
+                <div class="tab-content" id="submissions">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Submissões dos Alunos</h2>
+                        </div>
+                        
+                        <div class="submissions-list" id="submissionsListContainer">
+                            <!-- As submissões serão carregadas via JavaScript -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/atividades-compartilhadas.js"></script>
+    <script>
+        // Sistema de atividades do professor
+        
+        // Função para carregar disciplinas do diretor no select
+        function loadDisciplinesSelect() {
+            const disciplineSelect = document.getElementById('discipline');
+            const disciplines = getDisciplinesFromDirector().filter(d => d.active);
+            
+            disciplineSelect.innerHTML = '<option value="">Selecione a disciplina</option>';
+            disciplines.forEach(discipline => {
+                const option = document.createElement('option');
+                option.value = discipline.id;
+                option.textContent = `${discipline.name} (${discipline.code})`;
+                disciplineSelect.appendChild(option);
+            });
+        }
+        
+        // Função para carregar atividades do professor
+        function loadProfessorActivities() {
+            const container = document.getElementById('assignmentListContainer');
+            const activities = getActivities().filter(activity => activity.professorId === 1);
+            
+            if (activities.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-tasks"></i>
+                        <p>Nenhuma atividade criada ainda</p>
+                        <small>Use o formulário acima para criar sua primeira atividade</small>
+                    </div>
+                `;
+                return;
+            }
+            
+            container.innerHTML = '';
+            activities.forEach(activity => {
+                const dueDate = new Date(activity.dueDate);
+                const totalSubmissions = activity.submissions ? activity.submissions.length : 0;
+                
+                const activityElement = document.createElement('div');
+                activityElement.className = 'assignment-item';
+                activityElement.innerHTML = `
+                    <div class="assignment-item-header">
+                        <div class="assignment-title">${activity.title}</div>
+                        <div class="assignment-type type-${activity.type}">
+                            ${activity.type === 'activity' ? 'Atividade' : 
+                              activity.type === 'exam' ? 'Prova' : 
+                              activity.type === 'recovery' ? 'Recuperação' : 'Aula Online'}
+                        </div>
+                    </div>
+                    <div class="assignment-details">
+                        <p>${activity.description}</p>
+                    </div>
+                    <div class="assignment-meta">
+                        <div>Disciplina: ${activity.discipline}</div>
+                        <div>Entrega: ${dueDate.toLocaleDateString('pt-BR')}</div>
+                        <div>Entregas: ${totalSubmissions} alunos</div>
+                    </div>
+                    <div class="assignment-actions">
+                        <button class="btn btn-primary" onclick="viewSubmissions(${activity.id})">
+                            <i class="fas fa-eye"></i> Ver Entregas
+                        </button>
+                        <button class="btn btn-danger" onclick="deleteActivity(${activity.id})">
+                            <i class="fas fa-trash"></i> Excluir
+                        </button>
+                    </div>
+                `;
+                
+                container.appendChild(activityElement);
+            });
+        }
+        
+        // Função para carregar submissões
+        function loadSubmissions() {
+            const container = document.getElementById('submissionsListContainer');
+            const activities = getActivities().filter(activity => 
+                activity.professorId === 1 && activity.submissions && activity.submissions.length > 0
+            );
+            
+            if (activities.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-inbox"></i>
+                        <p>Nenhuma submissão recebida ainda</p>
+                        <small>As entregas dos alunos aparecerão aqui</small>
+                    </div>
+                `;
+                return;
+            }
+            
+            container.innerHTML = '';
+            activities.forEach(activity => {
+                activity.submissions.forEach(submission => {
+                    const submissionElement = document.createElement('div');
+                    submissionElement.className = 'submission-item';
+                    submissionElement.innerHTML = `
+                        <div class="submission-info">
+                            <img src="https://ui-avatars.com/api/?name=Aluno&background=2ecc71&color=fff" alt="Aluno">
+                            <div class="submission-details">
+                                <h4>Aluno #${submission.studentId}</h4>
+                                <p>${activity.title} - Enviado em ${new Date(submission.submittedAt).toLocaleDateString('pt-BR')}</p>
+                            </div>
+                        </div>
+                        <div class="submission-actions">
+                            <button class="btn btn-success" onclick="viewSubmission(${activity.id}, ${submission.studentId})">
+                                <i class="fas fa-eye"></i> Ver Entrega
+                            </button>
+                            <div class="submission-status status-submitted">Entregue</div>
+                        </div>
+                    `;
+                    
+                    container.appendChild(submissionElement);
+                });
+            });
+        }
+        
+        // Formulário de criação de atividade
+        document.getElementById('assignmentForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const title = document.getElementById('title').value;
+            const type = document.getElementById('type').value;
+            const disciplineId = document.getElementById('discipline').value;
+            const description = document.getElementById('description').value;
+            const dueDate = document.getElementById('dueDate').value;
+            
+            // Buscar nome da disciplina
+            const disciplines = getDisciplinesFromDirector();
+            const discipline = disciplines.find(d => d.id == disciplineId);
+            
+            if (!discipline) {
+                alert('Selecione uma disciplina válida!');
+                return;
+            }
+            
+            const activityData = {
+                title: title,
+                type: type,
+                discipline: discipline.name,
+                disciplineId: parseInt(disciplineId),
+                description: description,
+                dueDate: dueDate,
+                professorId: 1,
+                professorName: "Prof. João Silva"
+            };
+            
+            createActivity(activityData);
+            
+            alert('Atividade criada com sucesso! Os alunos já podem visualizá-la.');
+            
+            // Recarregar as listas
+            loadProfessorActivities();
+            loadSubmissions();
+            
+            // Limpar formulário
+            this.reset();
+            
+            // Mudar para a aba de listagem
+            switchTab('list');
+        });
+        
+        // Funções auxiliares
+        function viewSubmissions(activityId) {
+            switchTab('submissions');
+            // Em um sistema completo, filtraria por atividade específica
+        }
+        
+        function viewSubmission(activityId, studentId) {
+            alert(`Visualizar entrega da atividade ${activityId} do aluno ${studentId}`);
+            // Em um sistema completo, abriria modal com detalhes
+        }
+        
+        function deleteActivity(activityId) {
+            if (confirm('Tem certeza que deseja excluir esta atividade?')) {
+                const activities = getActivities();
+                const updatedActivities = activities.filter(a => a.id !== activityId);
+                saveActivities(updatedActivities);
+                loadProfessorActivities();
+                alert('Atividade excluída com sucesso!');
+            }
+        }
+        
+        function switchTab(tabName) {
+            // Remover active de todos
+            document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+            
+            // Adicionar active ao selecionado
+            document.querySelector(`[data-tab="${tabName}"]`).classList.add('active');
+            document.getElementById(tabName).classList.add('active');
+        }
+        
+        // Sistema de abas
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.addEventListener('click', function() {
+                const tabId = this.getAttribute('data-tab');
+                switchTab(tabId);
+            });
+        });
+        
+        // Inicializar a página
+        document.addEventListener('DOMContentLoaded', function() {
+            loadDisciplinesSelect();
+            loadProfessorActivities();
+            loadSubmissions();
+        });
+    </script>
+</body>
+</html>

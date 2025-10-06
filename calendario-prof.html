@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calendário Acadêmico - EduChain</title>
+    <link rel="stylesheet" href="css/calendario-prof.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <h2>EduChain</h2>
+                <p>Área do Professor</p>
+            </div>
+            
+            <div class="user-info">
+                <img src="https://ui-avatars.com/api/?name=Prof+Silva&background=3498db&color=fff" alt="Professor">
+                <div class="user-details">
+                    <h4>Prof. Carlos Silva</h4>
+                    <span>Matemática</span>
+                </div>
+            </div>
+            
+            <ul class="nav-links">
+                <li>
+                    <a href="professor.html">
+                        <i class="fas fa-home"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="disciplinas.html">
+                        <i class="fas fa-book"></i>
+                        <span>Disciplinas</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="atividade.html">
+                        <i class="fas fa-tasks"></i>
+                        <span>Atividades</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="chat-prof.html">
+                        <i class="fas fa-comments"></i>
+                        <span>Chat</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="relatorios-professor.html">
+                        <i class="fas fa-chart-line"></i>
+                        <span>Relatórios</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="calendario-prof.html" class="active">
+                        <i class="fas fa-calendar"></i>
+                        <span>Calendário</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="index.html">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>Sair</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="main-content">
+            <header>
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Pesquisar eventos..." id="searchEvents">
+                </div>
+                
+                <div class="header-right">
+                    <div class="notification">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-count">3</span>
+                    </div>
+                    
+                    <div class="user-actions">
+                        <img src="https://ui-avatars.com/api/?name=Prof+Silva&background=3498db&color=fff" alt="Professor">
+                    </div>
+                </div>
+            </header>
+            
+            <div class="content">
+                <div class="page-title">
+                    <h1>Calendário Acadêmico</h1>
+                    <button class="btn btn-primary" id="addEventBtn">
+                        <i class="fas fa-plus"></i> Novo Evento
+                    </button>
+                </div>
+                
+                <!-- Controles do Calendário -->
+                <div class="calendar-controls">
+                    <div class="year-selector">
+                        <button class="btn btn-secondary" id="prevYear">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <select id="yearSelect" class="form-control">
+                            <!-- Anos serão preenchidos via JavaScript -->
+                        </select>
+                        <button class="btn btn-secondary" id="nextYear">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                    
+                    <div class="month-selector">
+                        <button class="btn btn-secondary" id="prevMonth">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <select id="monthSelect" class="form-control">
+                            <option value="0">Janeiro</option>
+                            <option value="1">Fevereiro</option>
+                            <option value="2">Março</option>
+                            <option value="3">Abril</option>
+                            <option value="4">Maio</option>
+                            <option value="5">Junho</option>
+                            <option value="6">Julho</option>
+                            <option value="7">Agosto</option>
+                            <option value="8">Setembro</option>
+                            <option value="9">Outubro</option>
+                            <option value="10">Novembro</option>
+                            <option value="11">Dezembro</option>
+                        </select>
+                        <button class="btn btn-secondary" id="nextMonth">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                    
+                    <div class="view-options">
+                        <button class="btn btn-secondary active" id="monthView">
+                            <i class="fas fa-calendar-alt"></i> Mês
+                        </button>
+                        <button class="btn btn-secondary" id="weekView">
+                            <i class="fas fa-calendar-week"></i> Semana
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Calendário -->
+                <div class="calendar-container">
+                    <div class="calendar-header">
+                        <h2 id="currentMonthYear">Janeiro 2025</h2>
+                    </div>
+                    
+                    <div class="calendar">
+                        <div class="weekdays">
+                            <div>Dom</div>
+                            <div>Seg</div>
+                            <div>Ter</div>
+                            <div>Qua</div>
+                            <div>Qui</div>
+                            <div>Sex</div>
+                            <div>Sáb</div>
+                        </div>
+                        <div class="calendar-days" id="calendarDays">
+                            <!-- Dias serão preenchidos via JavaScript -->
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Eventos do Dia Selecionado -->
+                <div class="day-events" id="dayEvents">
+                    <div class="events-header">
+                        <h3>Eventos do Dia</h3>
+                        <span id="selectedDateText">Selecione uma data</span>
+                    </div>
+                    <div class="events-list" id="eventsList">
+                        <div class="empty-state">
+                            <i class="fas fa-calendar-day"></i>
+                            <p>Nenhum evento para esta data</p>
+                            <small>Clique em uma data para ver ou adicionar eventos</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para Adicionar/Editar Evento -->
+    <div id="eventModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalTitle">Adicionar Evento</h3>
+                <span class="close">&times;</span>
+            </div>
+            <div class="modal-body">
+                <form id="eventForm">
+                    <input type="hidden" id="eventId">
+                    <div class="form-group">
+                        <label for="eventDate">Data</label>
+                        <input type="date" id="eventDate" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="eventType">Tipo de Evento</label>
+                        <select id="eventType" class="form-control" required>
+                            <option value="">Selecione o tipo</option>
+                            <option value="activity">Atividade</option>
+                            <option value="exam">Prova</option>
+                            <option value="recovery">Recuperação</option>
+                            <option value="meeting">Reunião</option>
+                            <option value="holiday">Feriado</option>
+                            <option value="other">Outro</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="eventTitle">Título</label>
+                        <input type="text" id="eventTitle" class="form-control" placeholder="Título do evento" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="eventDescription">Descrição</label>
+                        <textarea id="eventDescription" class="form-control" rows="3" placeholder="Descrição breve do evento"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="eventDiscipline">Disciplina (opcional)</label>
+                        <select id="eventDiscipline" class="form-control">
+                            <option value="">Selecione a disciplina</option>
+                            <option value="1">Programação I</option>
+                            <option value="2">Banco de Dados</option>
+                            <option value="3">Desenvolvimento Web</option>
+                            <option value="4">Redes de Computadores</option>
+                            <option value="5">Engenharia de Software</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" id="cancelEvent">Cancelar</button>
+                <button class="btn btn-danger" id="deleteEvent" style="display: none;">Excluir</button>
+                <button class="btn btn-primary" id="saveEvent">Salvar</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/calendario-prof.js"></script>
+</body>
+</html>
