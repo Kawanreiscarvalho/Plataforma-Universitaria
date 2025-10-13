@@ -8,6 +8,33 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
+    <script>
+        // protecao-paginas.js
+document.addEventListener('DOMContentLoaded', function() {
+    const usuarioLogado = JSON.parse(localStorage.getItem('usuarioLogado'));
+    
+    if (!usuarioLogado) {
+        window.location.href = 'index.html';
+        return;
+    }
+
+    // Verificar se o usuário tem acesso à página atual
+    const paginaAtual = window.location.pathname.split('/').pop();
+    const paginasPermitidas = {
+        'aluno': ['aluno.html'],
+        'professor': ['professor.html'],
+        'diretor': ['diretor.html']
+    };
+
+    if (!paginasPermitidas[usuarioLogado.tipo]?.includes(paginaAtual)) {
+        alert('Acesso negado! Você não tem permissão para acessar esta página.');
+        window.location.href = 'index.html';
+    }
+
+    // Opcional: Mostrar informações do usuário logado
+    console.log('Usuário logado:', usuarioLogado);
+});
+    </script>
     <div class="container">
         <!-- Sidebar -->
         <div class="sidebar">
@@ -44,7 +71,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="cadastro-professores.html">
                         <i class="fas fa-users"></i>
                         <span>Professores</span>
                     </a>

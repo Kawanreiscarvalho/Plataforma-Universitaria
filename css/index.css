@@ -38,6 +38,9 @@
             overflow: hidden;
             box-shadow: var(--shadow);
         }
+        .botão-de-login{
+            text-decoration: none;
+        }
 
         .login-left {
             flex: 1;

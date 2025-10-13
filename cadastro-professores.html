@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/cadastro-professores.css">
+    <title>Cadastro de Professores - EduChain</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <h2>EduChain</h2>
+                <p>Cadastro de Professores</p>
+            </div>
+            
+            <div class="user-info">
+                <img src="https://ui-avatars.com/api/?name=Admin+Sistema&background=3498db&color=fff" alt="Admin">
+                <div class="user-details">
+                    <h4>Administrador</h4>
+                    <span>Sistema</span>
+                </div>
+            </div>
+            
+            <ul class="nav-links">
+                <li>
+                    <a href="diretor.html">
+                        <i class="fas fa-arrow-left"></i>
+                        <span>Voltar ao Painel</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="active">
+                        <i class="fas fa-chalkboard-teacher"></i>
+                        <span>Professores</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="fas fa-book"></i>
+                        <span>Disciplinas</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="fas fa-cog"></i>
+                        <span>Configurações</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Header -->
+            <header>
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Pesquisar professores..." id="searchInput">
+                </div>
+                
+                <div class="header-right">
+                    <div class="notification">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-count">2</span>
+                    </div>
+                    
+                    <div class="user-actions">
+                        <img src="https://ui-avatars.com/api/?name=Admin+Sistema&background=3498db&color=fff" alt="Admin">
+                    </div>
+                </div>
+            </header>
+            
+            <!-- Content Area -->
+            <div class="content">
+                <div class="page-title">
+                    <h1>Cadastro de Professores</h1>
+                    <button class="btn btn-primary" id="novoProfessorBtn">
+                        <i class="fas fa-plus"></i> Novo Professor
+                    </button>
+                </div>
+                
+                <div class="dashboard-content">
+                    <!-- Formulário de Cadastro -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h2 id="formTitle">Cadastrar Novo Professor</h2>
+                        </div>
+                        
+                        <form id="professorForm">
+                            <input type="hidden" id="professorId">
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="professorNome">Nome Completo *</label>
+                                    <input type="text" id="professorNome" class="form-control" placeholder="Digite o nome do professor" required>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="professorEmail">E-mail *</label>
+                                    <input type="email" id="professorEmail" class="form-control" placeholder="professor@email.com" required>
+                                </div>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="professorCurso">Curso *</label>
+                                    <select id="professorCurso" class="form-control" required>
+                                        <option value="">Selecione o curso</option>
+                                        <option value="engenharia">Engenharia de Software</option>
+                                        <option value="direito">Direito</option>
+                                        <option value="administracao">Administração</option>
+                                        <option value="medicina">Medicina</option>
+                                        <option value="arquitetura">Arquitetura</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="professorPeriodo">Período *</label>
+                                    <select id="professorPeriodo" class="form-control" required>
+                                        <option value="">Selecione o período</option>
+                                        <option value="1">1º Período</option>
+                                        <option value="2">2º Período</option>
+                                        <option value="3">3º Período</option>
+                                        <option value="4">4º Período</option>
+                                        <option value="5">5º Período</option>
+                                        <option value="6">6º Período</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="professorTurno">Turno *</label>
+                                    <select id="professorTurno" class="form-control" required>
+                                        <option value="">Selecione o turno</option>
+                                        <option value="matutino">Matutino</option>
+                                        <option value="vespertino">Vespertino</option>
+                                        <option value="noturno">Noturno</option>
+                                        <option value="integral">Integral</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="professorDisciplina">Disciplina *</label>
+                                    <select id="professorDisciplina" class="form-control" required>
+                                        <option value="">Selecione a disciplina</option>
+                                        <option value="calculo">Cálculo I</option>
+                                        <option value="fisica">Física I</option>
+                                        <option value="programacao">Programação I</option>
+                                        <option value="algebra">Álgebra Linear</option>
+                                        <option value="banco-dados">Banco de Dados</option>
+                                        <option value="redes">Redes de Computadores</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <div class="form-actions">
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fas fa-save"></i> Salvar Professor
+                                </button>
+                                <button type="button" class="btn btn-secondary" id="cancelarBtn">
+                                    <i class="fas fa-times"></i> Cancelar
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                    
+                    <!-- Lista de Professores -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Professores Cadastrados</h2>
+                            <div class="filtros">
+                                <select id="filtroCurso" class="form-control-sm">
+                                    <option value="">Todos os cursos</option>
+                                    <option value="engenharia">Engenharia</option>
+                                    <option value="direito">Direito</option>
+                                    <option value="administracao">Administração</option>
+                                    <option value="medicina">Medicina</option>
+                                    <option value="arquitetura">Arquitetura</option>
+                                </select>
+                                <select id="filtroTurno" class="form-control-sm">
+                                    <option value="">Todos os turnos</option>
+                                    <option value="matutino">Matutino</option>
+                                    <option value="vespertino">Vespertino</option>
+                                    <option value="noturno">Noturno</option>
+                                    <option value="integral">Integral</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="professores-list" id="listaProfessores">
+                            <!-- Lista será preenchida via JavaScript -->
+                            <div class="empty-state">
+                                <i class="fas fa-chalkboard-teacher"></i>
+                                <p>Nenhum professor cadastrado</p>
+                                <small>Clique em "Novo Professor" para adicionar o primeiro</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/cadastro-professores.js"></script>
+</body>
+</html>

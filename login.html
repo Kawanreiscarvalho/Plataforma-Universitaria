@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'> 
+    <link rel="stylesheet" href="css/login.css">
+    <title>EduChain - Login</title>
+</head>
+<body>
+    <main class="container">
+        <form id="loginForm">
+            <h1>Login EduChain</h1>
+
+            <div class="modo-selecao">
+                <button type="button" class="modo-btn ativo" data-modo="professor">
+                    <i class='bx bx-chalkboard'></i> Professor
+                </button>
+                <button type="button" class="modo-btn" data-modo="diretor">
+                    <i class='bx bx-user-voice'></i> Diretor
+                </button>
+                <button type="button" class="modo-btn" data-modo="aluno">
+                    <i class='bx bx-graduation'></i> Aluno
+                </button>
+            </div>
+
+            <div class="input-box">
+                <input placeholder="E-mail" type="email" name="email" id="email" required>
+                <i class="bx bxs-user"></i>
+            </div>
+
+            <div class="input-box">
+                <input placeholder="Senha" type="password" name="password" id="password" required>
+                <i class="bx bxs-lock-alt"></i>
+            </div>
+
+            <div class="remember">
+                <label> 
+                    <input type="checkbox" id="remember">
+                    Lembrar minha senha
+                </label>
+                <a href="esqueci-minha-senha.html" class="esqueci-minha-senha" id="forgotPassword">Esqueci minha senha</a>
+            </div>
+
+            <button class="login" type="submit">Login</button>
+            
+            <div class="success-message" id="successMessage">Login realizado com sucesso! Redirecionando...</div>
+            <div class="error-message" id="errorMessage"></div>
+
+            <div class="register-Link">
+                <p>Não tem uma conta? <a href="cadastro.html" id="registerLink">Cadastrar-se</a></p> 
+            </div>
+        </form>
+    </main>
+
+    <!-- Loading Spinner -->
+    <div class="loading-spinner" id="loadingSpinner">
+        <div class="spinner"></div>
+        <p>Verificando credenciais...</p>
+    </div>
+
+    <script src="js/login.js"></script>
+</body>
+</html>

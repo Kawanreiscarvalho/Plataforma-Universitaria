@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>EduChain - Cadastrar-se</title>
+    <link rel="stylesheet" href="css/cadastro.css">
+    <link href="https://cdn.jsdelivr.net/npm/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;400;600;700&display=swap" rel="stylesheet" />
+</head>
+<body>
+    <div class="container">
+        <form id="cadastroForm">
+            <h1>Cadastre-se</h1>
+            
+            <div class="modo-selecao">
+                <button type="button" class="modo-btn ativo" data-modo="professor">
+                    <i class='bx bx-chalkboard'></i> Professor
+                </button>
+                <button type="button" class="modo-btn" data-modo="diretor">
+                    <i class='bx bx-user-voice'></i> Diretor
+                </button>
+                <button type="button" class="modo-btn" data-modo="aluno">
+                    <i class='bx bx-graduation'></i> Aluno
+                </button>
+            </div>
+            
+            <div class="input-box">
+                <input type="text" placeholder="Nome completo" name="nome" id="nome" required />
+                <i class="bx bxs-user"></i>
+            </div>
+            
+            <div class="input-box">
+                <input type="email" placeholder="E-mail" name="email" id="email" required />
+                <i class="bx bxs-envelope"></i>
+            </div>
+            
+            <div class="input-box">
+                <input type="password" placeholder="Senha" name="senha" id="senha" required />
+                <i class="bx bxs-lock-alt"></i>
+                <div class="password-strength">
+                    <div class="strength-bar">
+                        <div class="strength-fill" id="strength-fill"></div>
+                    </div>
+                    <span id="strength-text">Digite uma senha</span>
+                </div>
+            </div>
+
+            <div class="password-info" id="passwordInfo">
+                <i class='bx bx-info-circle'></i>
+                <span id="infoText">Professor: use a senha específica fornecida pela instituição</span>
+            </div>
+            
+            <button type="submit" class="login">Cadastrar</button>
+            
+            <div class="success-message" id="successMessage">Cadastro realizado com sucesso! Redirecionando...</div>
+            <div class="error-message" id="errorMessage"></div>
+            
+            <div class="register-Link">
+                <a href="index.html" id="backLink">Voltar para a página principal</a>
+            </div>
+        </form>
+    </div>
+
+    <!-- Loading Spinner -->
+    <div class="loading-spinner" id="loadingSpinner">
+        <div class="spinner"></div>
+        <p>Processando cadastro...</p>
+    </div>
+
+    <script src="js/cadastro.js"></script>
+</body>
+</html>
