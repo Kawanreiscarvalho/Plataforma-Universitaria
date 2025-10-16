@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/cadastro-professores.css">
-    <title>Cadastro de Professores - EduChain</title>
+    <title>Cadastro de Alunos - EduChain</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
@@ -13,7 +13,7 @@
         <div class="sidebar">
             <div class="sidebar-header">
                 <h2>EduChain</h2>
-                <p>Cadastro de Professores</p>
+                <p>Cadastro de Alunos</p>
             </div>
             
             <div class="user-info">
@@ -33,14 +33,14 @@
                 </li>
                 <li>
                     <a href="#" class="active">
-                        <i class="fas fa-chalkboard-teacher"></i>
-                        <span>Professores</span>
+                        <i class="fas fa-user-graduate"></i>
+                        <span>Alunos</span>
                     </a>
                 </li>
                 <li>
-                    <a href="#">
-                        <i class="fas fa-book"></i>
-                        <span>Disciplinas</span>
+                    <a href="cadastro-professores.html">
+                        <i class="fas fa-chalkboard-teacher"></i>
+                        <span>Professores</span>
                     </a>
                 </li>
                 <li>
@@ -58,13 +58,13 @@
             <header>
                 <div class="search-box">
                     <i class="fas fa-search"></i>
-                    <input type="text" placeholder="Pesquisar professores..." id="searchInput">
+                    <input type="text" placeholder="Pesquisar alunos..." id="searchInput">
                 </div>
                 
                 <div class="header-right">
                     <div class="notification">
                         <i class="fas fa-bell"></i>
-                        <span class="notification-count">2</span>
+                        <span class="notification-count">3</span>
                     </div>
                     
                     <div class="user-actions">
@@ -76,9 +76,9 @@
             <!-- Content Area -->
             <div class="content">
                 <div class="page-title">
-                    <h1>Cadastro de Professores</h1>
-                    <button class="btn btn-primary" id="novoProfessorBtn">
-                        <i class="fas fa-plus"></i> Novo Professor
+                    <h1>Cadastro de Alunos</h1>
+                    <button class="btn btn-primary" id="novoAlunoBtn">
+                        <i class="fas fa-plus"></i> Novo Aluno
                     </button>
                 </div>
                 
@@ -86,28 +86,33 @@
                     <!-- Formulário de Cadastro -->
                     <div class="card">
                         <div class="card-header">
-                            <h2 id="formTitle">Cadastrar Novo Professor</h2>
+                            <h2 id="formTitle">Cadastrar Novo Aluno</h2>
                         </div>
                         
-                        <form id="professorForm">
-                            <input type="hidden" id="professorId">
+                        <form id="alunoForm">
+                            <input type="hidden" id="alunoId">
                             
                             <div class="form-row">
                                 <div class="form-group">
-                                    <label for="professorNome">Nome Completo *</label>
-                                    <input type="text" id="professorNome" class="form-control" placeholder="Digite o nome do professor" required>
+                                    <label for="alunoNome">Nome Completo *</label>
+                                    <input type="text" id="alunoNome" class="form-control" placeholder="Digite o nome do aluno" required>
                                 </div>
                                 
                                 <div class="form-group">
-                                    <label for="professorEmail">E-mail *</label>
-                                    <input type="email" id="professorEmail" class="form-control" placeholder="professor@email.com" required>
+                                    <label for="alunoEmail">E-mail *</label>
+                                    <input type="email" id="alunoEmail" class="form-control" placeholder="aluno@email.com" required>
                                 </div>
                             </div>
                             
                             <div class="form-row">
                                 <div class="form-group">
-                                    <label for="professorCurso">Curso *</label>
-                                    <select id="professorCurso" class="form-control" required>
+                                    <label for="alunoCPF">CPF *</label>
+                                    <input type="text" id="alunoCPF" class="form-control" placeholder="000.000.000-00" required>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="alunoCurso">Curso *</label>
+                                    <select id="alunoCurso" class="form-control" required>
                                         <option value="">Selecione o curso</option>
                                         <option value="engenharia">Engenharia de Software</option>
                                         <option value="direito">Direito</option>
@@ -116,10 +121,12 @@
                                         <option value="arquitetura">Arquitetura</option>
                                     </select>
                                 </div>
-                                
+                            </div>
+                            
+                            <div class="form-row">
                                 <div class="form-group">
-                                    <label for="professorPeriodo">Período *</label>
-                                    <select id="professorPeriodo" class="form-control" required>
+                                    <label for="alunoPeriodo">Período *</label>
+                                    <select id="alunoPeriodo" class="form-control" required>
                                         <option value="">Selecione o período</option>
                                         <option value="1">1º Período</option>
                                         <option value="2">2º Período</option>
@@ -129,18 +136,12 @@
                                         <option value="6">6º Período</option>
                                         <option value="7">7º Período</option>
                                         <option value="8">8º Período</option>
-                                        <option value="9">9º Período</option>
-                                        <option value="10">10º Período</option>
-                                        <option value="11">11º Período</option>
-                                        <option value="12">12º Período</option>
                                     </select>
                                 </div>
-                            </div>
-                            
-                            <div class="form-row">
+                                
                                 <div class="form-group">
-                                    <label for="professorTurno">Turno *</label>
-                                    <select id="professorTurno" class="form-control" required>
+                                    <label for="alunoTurno">Turno *</label>
+                                    <select id="alunoTurno" class="form-control" required>
                                         <option value="">Selecione o turno</option>
                                         <option value="matutino">Matutino</option>
                                         <option value="vespertino">Vespertino</option>
@@ -148,57 +149,41 @@
                                         <option value="integral">Integral</option>
                                     </select>
                                 </div>
-                                
-                                <div class="form-group">
-                                    <label for="professorHorario">Horário de Aula *</label>
-                                    <select id="professorHorario" class="form-control" required disabled>
-                                        <option value="">Selecione o horário</option>
-                                        <optgroup label="Matutino">
-                                            <option value="07:00-09:00">07:00 - 09:00</option>
-                                            <option value="08:00-10:00">08:00 - 10:00</option>
-                                            <option value="10:00-12:00">10:00 - 12:00</option>
-                                        
-                                        </optgroup>
-                                        <optgroup label="Vespertino">
-                                            <option value="13:00-15:00">13:00 - 15:00</option>
-                                            <option value="15:00-17:00">15:00 - 17:00</option>
-                                            <option value="17:00-19:00">17:00 - 19:00</option>
-                                          
-                                        </optgroup>
-                                        <optgroup label="Noturno">
-                                            <option value="18:00-20:00">18:00 - 20:00</option>
-                                            <option value="19:00-21:00">19:00 - 21:00</option>
-                                            <option value="20:00-22:00">20:00 - 22:00</option>
-                                            <option value="21:00-23:00">21:00 - 23:00</option>
-                                           
-                                        </optgroup>
-                                    </select>
-                                </div>
                             </div>
                             
-                            <div class="form-row">
-                                <div class="form-group">
-                                    <label for="professorDisciplina">Disciplina *</label>
-                                    <select id="professorDisciplina" class="form-control" required>
-                                        <option value="">Selecione a disciplina</option>
-                                        <option value="calculo">Cálculo I</option>
-                                        <option value="fisica">Física I</option>
-                                        <option value="programacao">Programação I</option>
-                                        <option value="algebra">Álgebra Linear</option>
-                                        <option value="banco-dados">Banco de Dados</option>
-                                        <option value="redes">Redes de Computadores</option>
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <!-- Espaço vazio para manter o layout -->
-                                    <label>&nbsp;</label>
-                                    <div style="height: 42px"></div>
+                            <div class="form-group">
+                                <label>Disciplinas *</label>
+                                <div class="disciplinas-grid">
+                                    <div class="disciplina-checkbox">
+                                        <input type="checkbox" id="disciplina-calculo" value="calculo">
+                                        <label for="disciplina-calculo">Cálculo I</label>
+                                    </div>
+                                    <div class="disciplina-checkbox">
+                                        <input type="checkbox" id="disciplina-fisica" value="fisica">
+                                        <label for="disciplina-fisica">Física I</label>
+                                    </div>
+                                    <div class="disciplina-checkbox">
+                                        <input type="checkbox" id="disciplina-programacao" value="programacao">
+                                        <label for="disciplina-programacao">Programação I</label>
+                                    </div>
+                                    <div class="disciplina-checkbox">
+                                        <input type="checkbox" id="disciplina-algebra" value="algebra">
+                                        <label for="disciplina-algebra">Álgebra Linear</label>
+                                    </div>
+                                    <div class="disciplina-checkbox">
+                                        <input type="checkbox" id="disciplina-banco-dados" value="banco-dados">
+                                        <label for="disciplina-banco-dados">Banco de Dados</label>
+                                    </div>
+                                    <div class="disciplina-checkbox">
+                                        <input type="checkbox" id="disciplina-redes" value="redes">
+                                        <label for="disciplina-redes">Redes de Computadores</label>
+                                    </div>
                                 </div>
                             </div>
                             
                             <div class="form-actions">
                                 <button type="submit" class="btn btn-primary">
-                                    <i class="fas fa-save"></i> Salvar Professor
+                                    <i class="fas fa-save"></i> Salvar Aluno
                                 </button>
                                 <button type="button" class="btn btn-secondary" id="cancelarBtn">
                                     <i class="fas fa-times"></i> Cancelar
@@ -207,10 +192,10 @@
                         </form>
                     </div>
                     
-                    <!-- Lista de Professores -->
+                    <!-- Lista de Alunos -->
                     <div class="card">
                         <div class="card-header">
-                            <h2>Professores Cadastrados</h2>
+                            <h2>Alunos Cadastrados</h2>
                             <div class="filtros">
                                 <select id="filtroCurso" class="form-control-sm">
                                     <option value="">Todos os cursos</option>
@@ -227,31 +212,26 @@
                                     <option value="noturno">Noturno</option>
                                     <option value="integral">Integral</option>
                                 </select>
-                                <select id="filtroHorario" class="form-control-sm">
-                                    <option value="">Todos os horários</option>
-                                    <option value="07:00-08:00">07:00-08:00</option>
-                                    <option value="08:00-09:00">08:00-09:00</option>
-                                    <option value="09:00-10:00">09:00-10:00</option>
-                                    <option value="10:00-11:00">10:00-11:00</option>
-                                    <option value="11:00-12:00">11:00-12:00</option>
-                                    <option value="13:00-14:00">13:00-14:00</option>
-                                    <option value="14:00-15:00">14:00-15:00</option>
-                                    <option value="15:00-16:00">15:00-16:00</option>
-                                    <option value="16:00-17:00">16:00-17:00</option>
-                                    <option value="17:00-18:00">17:00-18:00</option>
-                                    <option value="19:00-20:00">19:00-20:00</option>
-                                    <option value="20:00-21:00">20:00-21:00</option>
-                                    <option value="21:00-22:00">21:00-22:00</option>
+                                <select id="filtroPeriodo" class="form-control-sm">
+                                    <option value="">Todos os períodos</option>
+                                    <option value="1">1º Período</option>
+                                    <option value="2">2º Período</option>
+                                    <option value="3">3º Período</option>
+                                    <option value="4">4º Período</option>
+                                    <option value="5">5º Período</option>
+                                    <option value="6">6º Período</option>
+                                    <option value="7">7º Período</option>
+                                    <option value="8">8º Período</option>
                                 </select>
                             </div>
                         </div>
                         
-                        <div class="professores-list" id="listaProfessores">
+                        <div class="professores-list" id="listaAlunos">
                             <!-- Lista será preenchida via JavaScript -->
                             <div class="empty-state">
-                                <i class="fas fa-chalkboard-teacher"></i>
-                                <p>Nenhum professor cadastrado</p>
-                                <small>Clique em "Novo Professor" para adicionar o primeiro</small>
+                                <i class="fas fa-user-graduate"></i>
+                                <p>Nenhum aluno cadastrado</p>
+                                <small>Clique em "Novo Aluno" para adicionar o primeiro</small>
                             </div>
                         </div>
                     </div>
@@ -260,6 +240,6 @@
         </div>
     </div>
 
-    <script src="js/cadastro-professores.js"></script>
+    <script src="js/cadastro-aluno.js"></script>
 </body>
 </html>

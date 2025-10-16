@@ -1,10 +1,74 @@
-// cadastro-professores.js
+// js/cadastro-professores.js - VERSÃO COMPLETA COM SALA
+
 class GerenciadorProfessores {
     constructor() {
         this.professores = this.carregarProfessores();
         this.editandoId = null;
         this.inicializarEventos();
         this.renderizarLista();
+        this.configurarDependenciasTurnoHorario();
+    }
+
+    // Configurar dependência entre turno e horário
+    configurarDependenciasTurnoHorario() {
+        const turnoSelect = document.getElementById('professorTurno');
+        const horarioSelect = document.getElementById('professorHorario');
+        
+        turnoSelect.addEventListener('change', () => {
+            this.filtrarHorariosPorTurno();
+        });
+    }
+
+    // Filtrar horários com base no turno selecionado
+    filtrarHorariosPorTurno() {
+        const turno = document.getElementById('professorTurno').value;
+        const horarioSelect = document.getElementById('professorHorario');
+        
+        // Resetar e habilitar o campo
+        horarioSelect.innerHTML = '<option value="">Selecione o horário</option>';
+        horarioSelect.disabled = !turno;
+        
+        if (!turno) return;
+
+        const horariosPorTurno = {
+            'matutino': [
+                { value: '07:00-09:00', label: '07:00 - 09:00' },
+                { value: '08:00-10:00', label: '08:00 - 10:00' },
+                { value: '10:00-12:00', label: '10:00 - 12:00' }
+            ],
+            'vespertino': [
+                { value: '13:00-15:00', label: '13:00 - 15:00' },
+                { value: '15:00-17:00', label: '15:00 - 17:00' },
+                { value: '17:00-19:00', label: '17:00 - 19:00' }
+            ],
+            'noturno': [
+                { value: '18:00-20:00', label: '18:00 - 20:00' },
+                { value: '19:00-21:00', label: '19:00 - 21:00' },
+                { value: '20:00-22:00', label: '20:00 - 22:00' },
+                { value: '21:00-23:00', label: '21:00 - 23:00' }
+            ],
+            'integral': [
+                { value: '07:00-09:00', label: '07:00 - 09:00' },
+                { value: '08:00-10:00', label: '08:00 - 10:00' },
+                { value: '10:00-12:00', label: '10:00 - 12:00' },
+                { value: '13:00-15:00', label: '13:00 - 15:00' },
+                { value: '15:00-17:00', label: '15:00 - 17:00' },
+                { value: '17:00-19:00', label: '17:00 - 19:00' },
+                { value: '18:00-20:00', label: '18:00 - 20:00' },
+                { value: '19:00-21:00', label: '19:00 - 21:00' },
+                { value: '20:00-22:00', label: '20:00 - 22:00' },
+                { value: '21:00-23:00', label: '21:00 - 23:00' }
+            ]
+        };
+
+        const horarios = horariosPorTurno[turno] || [];
+        
+        horarios.forEach(horario => {
+            const option = document.createElement('option');
+            option.value = horario.value;
+            option.textContent = horario.label;
+            horarioSelect.appendChild(option);
+        });
     }
 
     // Carregar professores do localStorage
@@ -48,6 +112,10 @@ class GerenciadorProfessores {
         document.getElementById('filtroTurno').addEventListener('change', () => {
             this.aplicarFiltros();
         });
+
+        document.getElementById('filtroHorario').addEventListener('change', () => {
+            this.aplicarFiltros();
+        });
     }
 
     // Salvar/editar professor
@@ -59,13 +127,15 @@ class GerenciadorProfessores {
             curso: document.getElementById('professorCurso').value,
             periodo: document.getElementById('professorPeriodo').value,
             turno: document.getElementById('professorTurno').value,
+            horario: document.getElementById('professorHorario').value,
             disciplina: document.getElementById('professorDisciplina').value,
+            sala: document.getElementById('professorSala').value, // NOVO CAMPO
             dataCadastro: new Date().toISOString()
         };
 
         // Validar email único
         if (this.emailExiste(professor.email, professor.id)) {
-            alert('Já existe um professor cadastrado com este email!');
+            this.mostrarMensagem('Já existe um professor cadastrado com este email!', 'error');
             return;
         }
 
@@ -73,21 +143,40 @@ class GerenciadorProfessores {
             // Editar professor existente
             const index = this.professores.findIndex(p => p.id === this.editandoId);
             this.professores[index] = professor;
+            this.mostrarMensagem('Professor atualizado com sucesso!', 'success');
         } else {
             // Adicionar novo professor
             this.professores.push(professor);
+            this.mostrarMensagem('Professor cadastrado com sucesso!', 'success');
         }
 
         this.salvarProfessores();
         this.renderizarLista();
         this.limparFormulario();
-        
-        alert(`Professor ${this.editandoId ? 'atualizado' : 'cadastrado'} com sucesso!`);
     }
 
     // Verificar se email já existe
     emailExiste(email, idAtual) {
         return this.professores.some(p => p.email === email && p.id !== idAtual);
+    }
+
+    // Mostrar mensagem
+    mostrarMensagem(mensagem, tipo) {
+        // Criar elemento de mensagem
+        const mensagemDiv = document.createElement('div');
+        mensagemDiv.className = `mensagem ${tipo}`;
+        mensagemDiv.innerHTML = `
+            <i class="fas ${tipo === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle'}"></i>
+            ${mensagem}
+        `;
+
+        // Adicionar ao DOM
+        document.body.appendChild(mensagemDiv);
+
+        // Remover após 3 segundos
+        setTimeout(() => {
+            mensagemDiv.remove();
+        }, 3000);
     }
 
     // Editar professor
@@ -104,7 +193,15 @@ class GerenciadorProfessores {
         document.getElementById('professorCurso').value = professor.curso;
         document.getElementById('professorPeriodo').value = professor.periodo;
         document.getElementById('professorTurno').value = professor.turno;
+        
+        // Configurar horários baseado no turno
+        this.filtrarHorariosPorTurno();
+        setTimeout(() => {
+            document.getElementById('professorHorario').value = professor.horario;
+        }, 100);
+        
         document.getElementById('professorDisciplina').value = professor.disciplina;
+        document.getElementById('professorSala').value = professor.sala; // NOVO CAMPO
         
         // Atualizar título do formulário
         document.getElementById('formTitle').textContent = 'Editar Professor';
@@ -122,8 +219,7 @@ class GerenciadorProfessores {
         this.professores = this.professores.filter(p => p.id !== id);
         this.salvarProfessores();
         this.renderizarLista();
-        
-        alert('Professor excluído com sucesso!');
+        this.mostrarMensagem('Professor excluído com sucesso!', 'success');
     }
 
     // Limpar formulário
@@ -131,6 +227,8 @@ class GerenciadorProfessores {
         document.getElementById('professorForm').reset();
         document.getElementById('professorId').value = '';
         this.editandoId = null;
+        document.getElementById('professorHorario').innerHTML = '<option value="">Selecione o horário</option>';
+        document.getElementById('professorHorario').disabled = true;
         document.getElementById('formTitle').textContent = 'Cadastrar Novo Professor';
     }
 
@@ -144,14 +242,16 @@ class GerenciadorProfessores {
         const searchTerm = document.getElementById('searchInput').value.toLowerCase();
         const filtroCurso = document.getElementById('filtroCurso').value;
         const filtroTurno = document.getElementById('filtroTurno').value;
+        const filtroHorario = document.getElementById('filtroHorario').value;
 
         return this.professores.filter(professor => {
             const matchSearch = professor.nome.toLowerCase().includes(searchTerm) ||
                               professor.email.toLowerCase().includes(searchTerm);
             const matchCurso = !filtroCurso || professor.curso === filtroCurso;
             const matchTurno = !filtroTurno || professor.turno === filtroTurno;
+            const matchHorario = !filtroHorario || professor.horario === filtroHorario;
 
-            return matchSearch && matchCurso && matchTurno;
+            return matchSearch && matchCurso && matchTurno && matchHorario;
         });
     }
 
@@ -201,8 +301,16 @@ class GerenciadorProfessores {
                         <span>Turno: ${this.formatarTurno(professor.turno)}</span>
                     </div>
                     <div class="detail-item">
+                        <i class="fas fa-clock"></i>
+                        <span>Horário: ${professor.horario}</span>
+                    </div>
+                    <div class="detail-item">
                         <i class="fas fa-book"></i>
                         <span>Disciplina: ${this.formatarDisciplina(professor.disciplina)}</span>
+                    </div>
+                    <div class="detail-item">
+                        <i class="fas fa-door-open"></i>
+                        <span>Sala: ${professor.sala}</span>
                     </div>
                 </div>
             </div>
@@ -242,26 +350,42 @@ class GerenciadorProfessores {
         };
         return disciplinas[disciplina] || disciplina;
     }
-
-    // Método para obter todos os professores (para uso em outras páginas)
-    obterTodosProfessores() {
-        return this.professores;
-    }
-
-    // Método para obter professor por ID (para uso em outras páginas)
-    obterProfessorPorId(id) {
-        return this.professores.find(p => p.id === id);
-    }
-
-    // Método para obter professores por curso (para uso em outras páginas)
-    obterProfessoresPorCurso(curso) {
-        return this.professores.filter(p => p.curso === curso);
-    }
 }
 
 // Inicializar o gerenciador
 const gerenciador = new GerenciadorProfessores();
 
-// Exportar para uso em outras páginas (se necessário)
-window.GerenciadorProfessores = GerenciadorProfessores;
-window.gerenciadorProfessores = gerenciador;
+// CSS para as mensagens
+const style = document.createElement('style');
+style.textContent = `
+    .mensagem {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        padding: 15px 20px;
+        border-radius: 8px;
+        color: white;
+        font-weight: 500;
+        z-index: 1000;
+        animation: slideIn 0.3s ease;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+    
+    .mensagem.success {
+        background: #2ecc71;
+    }
+    
+    .mensagem.error {
+        background: #e74c3c;
+    }
+    
+    .mensagem i {
+        margin-right: 8px;
+    }
+    
+    @keyframes slideIn {
+        from { transform: translateX(100%); opacity: 0; }
+        to { transform: translateX(0); opacity: 1; }
+    }
+`;
+document.head.appendChild(style);
