@@ -1,4 +1,4 @@
-// js/cadastro-professores.js - VERSÃO COMPLETA COM SALA
+// js/cadastro-professores.js - VERSÃO CORRIGIDA
 
 class GerenciadorProfessores {
     constructor() {
@@ -7,6 +7,8 @@ class GerenciadorProfessores {
         this.inicializarEventos();
         this.renderizarLista();
         this.configurarDependenciasTurnoHorario();
+        
+        console.log('Gerenciador inicializado. Professores carregados:', this.professores.length);
     }
 
     // Configurar dependência entre turno e horário
@@ -14,9 +16,11 @@ class GerenciadorProfessores {
         const turnoSelect = document.getElementById('professorTurno');
         const horarioSelect = document.getElementById('professorHorario');
         
-        turnoSelect.addEventListener('change', () => {
-            this.filtrarHorariosPorTurno();
-        });
+        if (turnoSelect && horarioSelect) {
+            turnoSelect.addEventListener('change', () => {
+                this.filtrarHorariosPorTurno();
+            });
+        }
     }
 
     // Filtrar horários com base no turno selecionado
@@ -24,114 +28,130 @@ class GerenciadorProfessores {
         const turno = document.getElementById('professorTurno').value;
         const horarioSelect = document.getElementById('professorHorario');
         
-        // Resetar e habilitar o campo
+        if (!horarioSelect) return;
+        
         horarioSelect.innerHTML = '<option value="">Selecione o horário</option>';
         horarioSelect.disabled = !turno;
         
         if (!turno) return;
 
         const horariosPorTurno = {
-            'matutino': [
-                { value: '07:00-09:00', label: '07:00 - 09:00' },
-                { value: '08:00-10:00', label: '08:00 - 10:00' },
-                { value: '10:00-12:00', label: '10:00 - 12:00' }
-            ],
-            'vespertino': [
-                { value: '13:00-15:00', label: '13:00 - 15:00' },
-                { value: '15:00-17:00', label: '15:00 - 17:00' },
-                { value: '17:00-19:00', label: '17:00 - 19:00' }
-            ],
-            'noturno': [
-                { value: '18:00-20:00', label: '18:00 - 20:00' },
-                { value: '19:00-21:00', label: '19:00 - 21:00' },
-                { value: '20:00-22:00', label: '20:00 - 22:00' },
-                { value: '21:00-23:00', label: '21:00 - 23:00' }
-            ],
-            'integral': [
-                { value: '07:00-09:00', label: '07:00 - 09:00' },
-                { value: '08:00-10:00', label: '08:00 - 10:00' },
-                { value: '10:00-12:00', label: '10:00 - 12:00' },
-                { value: '13:00-15:00', label: '13:00 - 15:00' },
-                { value: '15:00-17:00', label: '15:00 - 17:00' },
-                { value: '17:00-19:00', label: '17:00 - 19:00' },
-                { value: '18:00-20:00', label: '18:00 - 20:00' },
-                { value: '19:00-21:00', label: '19:00 - 21:00' },
-                { value: '20:00-22:00', label: '20:00 - 22:00' },
-                { value: '21:00-23:00', label: '21:00 - 23:00' }
-            ]
+            'matutino': ['07:00-09:00', '08:00-10:00', '10:00-12:00'],
+            'vespertino': ['13:00-15:00', '15:00-17:00', '17:00-19:00'],
+            'noturno': ['18:00-20:00', '19:00-21:00', '20:00-22:00', '21:00-23:00'],
+            'integral': ['07:00-09:00', '08:00-10:00', '10:00-12:00', '13:00-15:00', '15:00-17:00', '17:00-19:00', '18:00-20:00', '19:00-21:00', '20:00-22:00']
         };
 
         const horarios = horariosPorTurno[turno] || [];
         
         horarios.forEach(horario => {
             const option = document.createElement('option');
-            option.value = horario.value;
-            option.textContent = horario.label;
+            option.value = horario;
+            option.textContent = horario.replace('-', ' - ');
             horarioSelect.appendChild(option);
         });
     }
 
     // Carregar professores do localStorage
     carregarProfessores() {
-        const professoresSalvos = localStorage.getItem('professores');
-        return professoresSalvos ? JSON.parse(professoresSalvos) : [];
+        try {
+            const professoresSalvos = localStorage.getItem('professores');
+            return professoresSalvos ? JSON.parse(professoresSalvos) : [];
+        } catch (error) {
+            console.error('Erro ao carregar professores:', error);
+            return [];
+        }
     }
 
     // Salvar professores no localStorage
     salvarProfessores() {
-        localStorage.setItem('professores', JSON.stringify(this.professores));
+        try {
+            localStorage.setItem('professores', JSON.stringify(this.professores));
+            console.log('Professores salvos:', this.professores);
+            return true;
+        } catch (error) {
+            console.error('Erro ao salvar professores:', error);
+            this.mostrarMensagem('Erro ao salvar dados!', 'error');
+            return false;
+        }
     }
 
     // Inicializar eventos
     inicializarEventos() {
+        console.log('Inicializando eventos...');
+        
         // Formulário
-        document.getElementById('professorForm').addEventListener('submit', (e) => {
-            e.preventDefault();
-            this.salvarProfessor();
-        });
+        const form = document.getElementById('professorForm');
+        if (form) {
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                console.log('Formulário submetido');
+                this.salvarProfessor();
+            });
+        } else {
+            console.error('Formulário não encontrado!');
+        }
 
         // Botão novo professor
-        document.getElementById('novoProfessorBtn').addEventListener('click', () => {
-            this.limparFormulario();
-        });
+        const novoBtn = document.getElementById('novoProfessorBtn');
+        if (novoBtn) {
+            novoBtn.addEventListener('click', () => {
+                this.limparFormulario();
+            });
+        }
 
         // Botão cancelar
-        document.getElementById('cancelarBtn').addEventListener('click', () => {
-            this.limparFormulario();
-        });
+        const cancelarBtn = document.getElementById('cancelarBtn');
+        if (cancelarBtn) {
+            cancelarBtn.addEventListener('click', () => {
+                this.limparFormulario();
+            });
+        }
 
         // Filtros
-        document.getElementById('searchInput').addEventListener('input', () => {
-            this.aplicarFiltros();
-        });
+        const searchInput = document.getElementById('searchInput');
+        if (searchInput) {
+            searchInput.addEventListener('input', () => {
+                this.aplicarFiltros();
+            });
+        }
 
-        document.getElementById('filtroCurso').addEventListener('change', () => {
-            this.aplicarFiltros();
-        });
-
-        document.getElementById('filtroTurno').addEventListener('change', () => {
-            this.aplicarFiltros();
-        });
-
-        document.getElementById('filtroHorario').addEventListener('change', () => {
-            this.aplicarFiltros();
+        // Outros filtros...
+        ['filtroCurso', 'filtroTurno', 'filtroHorario'].forEach(id => {
+            const element = document.getElementById(id);
+            if (element) {
+                element.addEventListener('change', () => {
+                    this.aplicarFiltros();
+                });
+            }
         });
     }
 
-    // Salvar/editar professor
+    // Salvar/editar professor - VERSÃO SIMPLIFICADA E CORRIGIDA
     salvarProfessor() {
+        console.log('Iniciando salvamento do professor...');
+        
+        // Coletar dados do formulário
         const professor = {
             id: this.editandoId || Date.now(),
-            nome: document.getElementById('professorNome').value,
-            email: document.getElementById('professorEmail').value,
-            curso: document.getElementById('professorCurso').value,
-            periodo: document.getElementById('professorPeriodo').value,
-            turno: document.getElementById('professorTurno').value,
-            horario: document.getElementById('professorHorario').value,
-            disciplina: document.getElementById('professorDisciplina').value,
-            sala: document.getElementById('professorSala').value, // NOVO CAMPO
+            nome: this.obterValorCampo('professorNome'),
+            email: this.obterValorCampo('professorEmail'),
+            curso: this.obterValorCampo('professorCurso'),
+            periodo: this.obterValorCampo('professorPeriodo'),
+            turno: this.obterValorCampo('professorTurno'),
+            horario: this.obterValorCampo('professorHorario'),
+            disciplina: this.obterValorCampo('professorDisciplina'),
+            sala: this.obterValorCampo('professorSala'),
             dataCadastro: new Date().toISOString()
         };
+
+        console.log('Dados do professor:', professor);
+
+        // Validações básicas
+        if (!professor.nome || !professor.email) {
+            this.mostrarMensagem('Nome e email são obrigatórios!', 'error');
+            return;
+        }
 
         // Validar email único
         if (this.emailExiste(professor.email, professor.id)) {
@@ -139,20 +159,37 @@ class GerenciadorProfessores {
             return;
         }
 
-        if (this.editandoId) {
-            // Editar professor existente
-            const index = this.professores.findIndex(p => p.id === this.editandoId);
-            this.professores[index] = professor;
-            this.mostrarMensagem('Professor atualizado com sucesso!', 'success');
-        } else {
-            // Adicionar novo professor
-            this.professores.push(professor);
-            this.mostrarMensagem('Professor cadastrado com sucesso!', 'success');
-        }
+        try {
+            if (this.editandoId) {
+                // Editar professor existente
+                const index = this.professores.findIndex(p => p.id === this.editandoId);
+                if (index !== -1) {
+                    this.professores[index] = professor;
+                    console.log('Professor atualizado:', professor);
+                    this.mostrarMensagem('Professor atualizado com sucesso!', 'success');
+                }
+            } else {
+                // Adicionar novo professor
+                this.professores.push(professor);
+                console.log('Novo professor adicionado:', professor);
+                this.mostrarMensagem('Professor cadastrado com sucesso!', 'success');
+            }
 
-        this.salvarProfessores();
-        this.renderizarLista();
-        this.limparFormulario();
+            // Salvar no localStorage
+            if (this.salvarProfessores()) {
+                this.renderizarLista();
+                this.limparFormulario();
+            }
+        } catch (error) {
+            console.error('Erro ao salvar professor:', error);
+            this.mostrarMensagem('Erro ao salvar professor!', 'error');
+        }
+    }
+
+    // Método auxiliar para obter valor do campo
+    obterValorCampo(id) {
+        const element = document.getElementById(id);
+        return element ? element.value : '';
     }
 
     // Verificar se email já existe
@@ -162,6 +199,12 @@ class GerenciadorProfessores {
 
     // Mostrar mensagem
     mostrarMensagem(mensagem, tipo) {
+        console.log(`Mensagem [${tipo}]:`, mensagem);
+        
+        // Remover mensagens existentes
+        const mensagensExistentes = document.querySelectorAll('.mensagem');
+        mensagensExistentes.forEach(msg => msg.remove());
+
         // Criar elemento de mensagem
         const mensagemDiv = document.createElement('div');
         mensagemDiv.className = `mensagem ${tipo}`;
@@ -175,39 +218,52 @@ class GerenciadorProfessores {
 
         // Remover após 3 segundos
         setTimeout(() => {
-            mensagemDiv.remove();
+            if (mensagemDiv.parentNode) {
+                mensagemDiv.remove();
+            }
         }, 3000);
     }
 
     // Editar professor
     editarProfessor(id) {
+        console.log('Editando professor ID:', id);
         const professor = this.professores.find(p => p.id === id);
-        if (!professor) return;
+        if (!professor) {
+            console.error('Professor não encontrado:', id);
+            return;
+        }
 
         this.editandoId = id;
         
         // Preencher formulário
-        document.getElementById('professorId').value = professor.id;
-        document.getElementById('professorNome').value = professor.nome;
-        document.getElementById('professorEmail').value = professor.email;
-        document.getElementById('professorCurso').value = professor.curso;
-        document.getElementById('professorPeriodo').value = professor.periodo;
-        document.getElementById('professorTurno').value = professor.turno;
+        this.preencherCampo('professorId', professor.id);
+        this.preencherCampo('professorNome', professor.nome);
+        this.preencherCampo('professorEmail', professor.email);
+        this.preencherCampo('professorCurso', professor.curso);
+        this.preencherCampo('professorPeriodo', professor.periodo);
+        this.preencherCampo('professorTurno', professor.turno);
+        this.preencherCampo('professorDisciplina', professor.disciplina);
+        this.preencherCampo('professorSala', professor.sala);
         
         // Configurar horários baseado no turno
         this.filtrarHorariosPorTurno();
         setTimeout(() => {
-            document.getElementById('professorHorario').value = professor.horario;
+            this.preencherCampo('professorHorario', professor.horario);
         }, 100);
         
-        document.getElementById('professorDisciplina').value = professor.disciplina;
-        document.getElementById('professorSala').value = professor.sala; // NOVO CAMPO
-        
         // Atualizar título do formulário
-        document.getElementById('formTitle').textContent = 'Editar Professor';
-        
-        // Rolagem suave para o formulário
-        document.querySelector('.card').scrollIntoView({ behavior: 'smooth' });
+        const formTitle = document.getElementById('formTitle');
+        if (formTitle) {
+            formTitle.textContent = 'Editar Professor';
+        }
+    }
+
+    // Método auxiliar para preencher campo
+    preencherCampo(id, valor) {
+        const element = document.getElementById(id);
+        if (element) {
+            element.value = valor || '';
+        }
     }
 
     // Excluir professor
@@ -217,19 +273,33 @@ class GerenciadorProfessores {
         }
 
         this.professores = this.professores.filter(p => p.id !== id);
-        this.salvarProfessores();
-        this.renderizarLista();
-        this.mostrarMensagem('Professor excluído com sucesso!', 'success');
+        if (this.salvarProfessores()) {
+            this.renderizarLista();
+            this.mostrarMensagem('Professor excluído com sucesso!', 'success');
+        }
     }
 
     // Limpar formulário
     limparFormulario() {
-        document.getElementById('professorForm').reset();
-        document.getElementById('professorId').value = '';
+        const form = document.getElementById('professorForm');
+        if (form) {
+            form.reset();
+        }
+        this.preencherCampo('professorId', '');
         this.editandoId = null;
-        document.getElementById('professorHorario').innerHTML = '<option value="">Selecione o horário</option>';
-        document.getElementById('professorHorario').disabled = true;
-        document.getElementById('formTitle').textContent = 'Cadastrar Novo Professor';
+        
+        const horarioSelect = document.getElementById('professorHorario');
+        if (horarioSelect) {
+            horarioSelect.innerHTML = '<option value="">Selecione o horário</option>';
+            horarioSelect.disabled = true;
+        }
+        
+        const formTitle = document.getElementById('formTitle');
+        if (formTitle) {
+            formTitle.textContent = 'Cadastrar Novo Professor';
+        }
+        
+        console.log('Formulário limpo');
     }
 
     // Aplicar filtros
@@ -239,14 +309,15 @@ class GerenciadorProfessores {
 
     // Obter professores filtrados
     obterProfessoresFiltrados() {
-        const searchTerm = document.getElementById('searchInput').value.toLowerCase();
-        const filtroCurso = document.getElementById('filtroCurso').value;
-        const filtroTurno = document.getElementById('filtroTurno').value;
-        const filtroHorario = document.getElementById('filtroHorario').value;
+        const searchTerm = this.obterValorCampo('searchInput').toLowerCase();
+        const filtroCurso = this.obterValorCampo('filtroCurso');
+        const filtroTurno = this.obterValorCampo('filtroTurno');
+        const filtroHorario = this.obterValorCampo('filtroHorario');
 
         return this.professores.filter(professor => {
-            const matchSearch = professor.nome.toLowerCase().includes(searchTerm) ||
-                              professor.email.toLowerCase().includes(searchTerm);
+            const matchSearch = !searchTerm || 
+                               professor.nome.toLowerCase().includes(searchTerm) ||
+                               professor.email.toLowerCase().includes(searchTerm);
             const matchCurso = !filtroCurso || professor.curso === filtroCurso;
             const matchTurno = !filtroTurno || professor.turno === filtroTurno;
             const matchHorario = !filtroHorario || professor.horario === filtroHorario;
@@ -258,7 +329,13 @@ class GerenciadorProfessores {
     // Renderizar lista de professores
     renderizarLista() {
         const container = document.getElementById('listaProfessores');
+        if (!container) {
+            console.error('Container da lista de professores não encontrado!');
+            return;
+        }
+
         const professoresFiltrados = this.obterProfessoresFiltrados();
+        console.log('Renderizando lista. Total:', professoresFiltrados.length);
 
         if (professoresFiltrados.length === 0) {
             container.innerHTML = `
@@ -279,10 +356,10 @@ class GerenciadorProfessores {
                         <div class="professor-email">${professor.email}</div>
                     </div>
                     <div class="professor-actions">
-                        <button class="btn btn-secondary" onclick="gerenciador.editarProfessor(${professor.id})">
+                        <button class="btn btn-secondary" onclick="gerenciadorProfessores.editarProfessor(${professor.id})">
                             <i class="fas fa-edit"></i>
                         </button>
-                        <button class="btn btn-danger" onclick="gerenciador.excluirProfessor(${professor.id})">
+                        <button class="btn btn-danger" onclick="gerenciadorProfessores.excluirProfessor(${professor.id})">
                             <i class="fas fa-trash"></i>
                         </button>
                     </div>
@@ -317,7 +394,7 @@ class GerenciadorProfessores {
         `).join('');
     }
 
-    // Métodos auxiliares para formatação
+    // Métodos auxiliares para formatação (mantidos iguais)
     formatarCurso(curso) {
         const cursos = {
             'engenharia': 'Engenharia de Software',
@@ -352,10 +429,23 @@ class GerenciadorProfessores {
     }
 }
 
-// Inicializar o gerenciador
-const gerenciador = new GerenciadorProfessores();
+// Inicializar o gerenciador com verificação
+let gerenciadorProfessores;
 
-// CSS para as mensagens
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('DOM carregado, inicializando gerenciador...');
+    gerenciadorProfessores = new GerenciadorProfessores();
+    
+    // Verificar se os elementos necessários existem
+    if (!document.getElementById('professorForm')) {
+        console.error('Elemento professorForm não encontrado! Verifique o HTML.');
+    }
+    if (!document.getElementById('listaProfessores')) {
+        console.error('Elemento listaProfessores não encontrado! Verifique o HTML.');
+    }
+});
+
+// CSS para as mensagens (mantido igual)
 const style = document.createElement('style');
 style.textContent = `
     .mensagem {
